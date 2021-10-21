@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="campBook">
+
+	<resultMap class="vo.CampBookVO" id="campBookMap">
+       <result property="bkCode" column="BK_CODE"/>
+       <result property="memCode" column="MEM_CODE"/>
+       <result property="cmpCode" column="CMP_CODE"/>
+       <result property="bkPayday" column="BK_PAYDAY"/>
+       <result property="bkDayin" column="BK_DAYIN"/>
+       <result property="bkDayout" column="BK_DAYOUT"/>
+       <result property="bkMemnum" column="BK_MEMNUM"/>
+    </resultMap>
+    
+    <select id="getCampBookAll" resultMap="campBookMap">
+    
+   	select AA.*
+      from
+      (select A.*, rownum as rnum
+      from 
+      (select BK_CODE
+            ,MEM_CODE
+            ,CMP_CODE
+            ,BK_PAYDAY
+            ,BK_DAYIN
+            ,BK_DAYOUT
+            ,BK_MEMNUM
+     from TB_CAMPBOOK) A ) AA
+     where AA.rnum between #firstRecNo# and #lastRecNo#
+    </select>
+    
+    <select id="getTotalCnt" resultClass="int">
+       select count(*) as cnt from TB_CAMPBOOK
+    </select>
+</sqlMap >

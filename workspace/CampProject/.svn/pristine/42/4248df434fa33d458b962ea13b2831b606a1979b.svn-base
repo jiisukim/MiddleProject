@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+         
+<sqlMap namespace="campRev">
+   <resultMap class="vo.CampRevVO" id="campRevMap">
+     
+      <result property="memCode"  column="MEM_CODE"/>
+      <result property="bkCode"  column="BK_CODE"/>
+      <result property="revTitle"  column="REV_TITLE"/>
+      <result property="revCon"  column="REV_CON"/>
+      <result property="revDate"  column="REV_DATE"/>
+   </resultMap>
+
+    <select id="getCampRevAll" resultMap="campRevMap">
+
+	Select AA.MEM_ID, REV_TITLE, REV_CON, REV_DATE, CMP_NICK
+	from (select MEM_ID, BK_CODE, CMP_CODE
+		from TB_MEM m, TB_CAMPBOOK c
+		where m.MEM_CODE = c.MEM_CODE) AA, TB_CAMPREV BB, TB_CAMPHOST H
+	where AA.BK_CODE = BB.BK_CODE
+	and AA.CMP_CODE= #CMP_CODE#
+	order by REV_CODE desc
+       
+    </select>
+   
+   <insert id="insertCampRev" parameterClass="vo.CampRevVO">
+       
+       insert into TB_CAMPREV
+      (REV_CODE, MEM_CODE, BK_CODE, REV_TITLE, REV_CON, REV_DATE, REV_CMPVST)
+      values ((SELECT NVL(MAX(TO_NUMBER(REV_CODE)), 0) + 1 FROM TB_CAMPREV), #RevCode#, #BkCode#, #RevTitle#, #RevCon#, to_char(sysdate,'yyyy-mm-dd'), #RevCmpvst# )
+       
+    </insert>
+    
+   <update id="updateCampRev" parameterClass="vo.CampRevVO">
+    
+      update TB_CAMPREV
+      set REV_TITLE = #RevTitle#
+         ,REV_CON = #RevCon#
+      where REV_CODE = #RevCode#
+    
+    </update>
+    
+    
+    <delete id="deleteCampRev" parameterClass="String">
+    
+       delete from TB_CAMPREV where REV_CODE = #revCode#
+
+    </delete>
+    
+    <select id="getTotalCnt" resultClass="int">
+       
+       select count(*) as cnt
+      from TB_CAMPREV
+    
+    </select>
+    
+    <select id="getCampRev" resultMap="campRevMap">
+    
+       select *  from TB_CAMPREV where REV_CODE = #revCode#
+       
+    </select>
+</sqlMap>

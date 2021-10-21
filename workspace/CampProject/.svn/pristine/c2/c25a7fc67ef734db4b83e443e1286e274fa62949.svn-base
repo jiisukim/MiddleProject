@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="pay">
+<!-- 
+	<insert id="">
+		
+	</insert>
+	
+	<update id=""></update>
+	
+	<select id=""></select> -->	
+	<select id="searchCampHost" parameterClass="String"
+	resultClass="vo.CampHostVO">
+		SELECT 
+		CMP_CODE             cmpCode   
+		,CMP_ID              cmpId     
+		,CMP_PW              cmpPw     
+		,CMP_NICK            cmpNick   
+		,CMP_HOSTNAME        cmpHostname
+		,CMP_TEL             cmpTel    
+		,CMP_DESC            cmpDesc   
+		,CMP_CONV            cmpConv   
+		,CMP_FEE             cmpFee    
+		,CMP_SITENUM         cmpSitenum
+		,CMP_LATI            cmpLati   
+		,CMP_LONG            cmpLong   
+		,CMP_LOADADDR        cmpLoadaddr
+		,CMP_ADDR            cmpAddr   
+		,CMP_APPYN           cmpAppyn		
+		FROM TB_CAMPHOST
+		WHERE CMP_ID = #cmpCode#		
+	</select>	
+	
+	
+	
+	<select id="searchMemListByMemNick" parameterClass="String"
+	resultClass="vo.MemVO">
+			SELECT 
+	    MEM_CODE        memCode
+	    ,MEM_ID         memId
+	    ,MEM_PW         memPw
+	    ,MEM_NICK       memNick
+	    ,MEM_NAME       memName
+	    ,MEM_BIR        memBir
+	    ,MEM_GEN        memGen
+	    ,MEM_EMAIL      memEmail
+	    ,MEM_TEL        memTel
+	    ,MEM_POINT      memPoint
+	    ,MEM_DELYN      memDelyn		
+		FROM TB_MEM
+		WHERE MEM_NICK = #memNick#		
+	</select>
+	
+	<insert id="insertMember" parameterClass="vo.MemVO">
+		INSERT INTO TB_MEM
+		(MEM_CODE,MEM_ID ,MEM_PW ,MEM_NICK ,MEM_NAME ,MEM_BIR ,MEM_GEN ,MEM_EMAIL 
+		,MEM_TEL ,MEM_POINT ,MEM_DELYN)
+		VALUES(MEM_SEQ.NEXTVAL, #memId#,#memPw#, #memNick#, #memName#, TO_DATE(#memBir#), #memGen#, #memEmail#
+		, #memTel#, #memPoint# , #memDelyn#)	
+	</insert>
+	
+	
+		
+</sqlMap>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="event">
+
+    <resultMap class="vo.EventVO" id="eventMap">
+       <result property="evnCode" column="evn_code"/>
+       <result property="admCode" column="adm_code"/>
+       <result property="evnTitle" column="evn_title"/>
+       <result property="evnCon" column="evn_con"/>
+       <result property="evnDate" column="evn_date"/>
+       <result property="evnStart" column="evn_start"/>
+       <result property="evnEnd" column="evn_end"/>
+<!--        <result property="atchFileId" column="atch_file_id"/> -->
+    </resultMap>
+    
+   <!--등록  -->
+    <insert id="insertEvent" parameterClass="vo.EventVO"> 
+        insert into tb_event
+      (evn_code, adm_code, evn_title, evn_con, evn_date , evn_start, evn_end)
+      values((SELECT NVL(MAX(evn_code), 0) + 1 FROM tb_event), 
+      #admCode#, #evnTitle#, #evnCon#, to_char(sysdate,'yyyy-mm-dd'), #evnStart#, #evnEnd#)
+    
+    </insert>
+    <!--수정  -->
+    <update id="updateEvent" parameterClass="vo.EventVO">
+           update tb_event
+            set evn_title = #evnTitle# 
+            ,evn_con = #evnCon#
+            ,evn_start = #evnStart#
+            ,evn_end = #evnEnd#
+
+            where evn_code = #evnCode#
+       
+    </update>
+    <!--삭제  -->
+    <delete id="deleteEvent" parameterClass="vo.EventVO">
+       delete from tb_event where evn_code = #evnCode#
+    
+    </delete>
+    
+    <!--전체 조회  -->
+    <select id="getEventAll" resultMap="eventMap">
+    
+        select AA.*
+      from
+      (select A.*, rownum as rnum
+      from 
+      (select evn_code
+            ,adm_code
+            ,evn_title
+            ,evn_con
+            ,evn_date
+            ,evn_start
+            ,evn_end
+<!--             ,atch_file_id -->
+      from tb_event) A ) AA
+      where AA.rnum between #firstRecNo# and #lastRecNo#
+       
+    </select>
+    <!--페이징 처리  -->
+    <select id="getTotalCnt" resultClass="int">
+       select count(*) as cnt from tb_event
+    </select>
+    
+    <select id="getEvent" resultMap="eventMap">
+       select * from tb_event where evn_code = #evnCode#
+    </select> 
+
+</sqlMap>         
+
+
+

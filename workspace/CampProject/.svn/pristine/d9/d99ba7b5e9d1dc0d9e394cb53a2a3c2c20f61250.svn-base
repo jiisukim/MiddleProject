@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	img{
+		border-radius: 15px;
+		width: 250px;
+	}
+	img:hover{
+		border: 2px solid lightgray;
+	}
+</style>
+</head>
+<%
+String gen = request.getParameter("gen");
+%>
+<body>
+	<div style="width: 70%">
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>등산</h2>
+			<a href="crewJoin.do?key=act&act=등산&gen=<%=gen %>"><img alt="등산" src="/images/campingImg1.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>낚시</h2>
+			<a href="crewJoin.do?key=act&act=낚시&gen=<%=gen %>"><img alt="낚시" src="/images/water.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>오락</h2>
+			<a href="crewJoin.do?key=act&act=오락&gen=<%=gen %>"><img alt="오락" src="/images/water.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>힐링</h2>
+			<a href="crewJoin.do?key=act&act=힐링&gen=<%=gen %>"><img alt="힐링" src="/images/water.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>무관</h2>
+			<a href="crewJoin.do?key=act&act=무관&gen=<%=gen %>"><img alt="무관" src="/images/tree.jpg" height="600px"></a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+         
+<sqlMap namespace="campingCrew">
+
+	<resultMap class="vo.RecCrewVO" id="campCrew">
+		<result property="crewCode" column="CREW_CODE"/>
+		<result property="memCode" column="MEM_CODE"/>
+		<result property="recrGender" column="RECR_GENDER"/>
+		<result property="recrStart" column="RECR_START"/>
+		<result property="recrEnd" column="RECR_END"/>
+		<result property="recrNeednum" column="RECR_NEEDNUM"/>
+		<result property="recrCurrnum" column="RECR_CURRNUM"/>
+		<result property="recrTitle" column="RECR_TITLE"/>
+		<result property="recrContent" column="RECR_CONTENT"/>
+	</resultMap>
+	
+	<resultMap class="vo.CrewActVO" id="crewAct">
+		<result property="crewCode" column="CREW_CODE"/>
+		<result property="actCode" column="ACT_CODE"/>
+	</resultMap>
+	
+	<resultMap class="vo.CrewThmVO" id="crewThm">
+		<result property="crewCode" column="CREW_CODE"/>
+		<result property="tmCode" column="TM_CODE"/>
+	</resultMap>
+
+	<resultMap class="vo.RecCrewVO2" id="campCrew2">
+		<result property="crewCode" column="CREW_CODE"/>
+		<result property="memCode" column="MEM_CODE"/>
+		<result property="recrGender" column="RECR_GENDER"/>
+		<result property="recrStart" column="RECR_START"/>
+		<result property="recrEnd" column="RECR_END"/>
+		<result property="recrNeednum" column="RECR_NEEDNUM"/>
+		<result property="recrCurrnum" column="RECR_CURRNUM"/>
+		<result property="recrTitle" column="RECR_TITLE"/>
+		<result property="recrContent" column="RECR_CONTENT"/>
+		<result property="actCode" column="ACT_CODE"/>
+		<result property="tmCode" column="TM_CODE"/>
+	</resultMap>
+
+	<select id="checkCrewCtgr" resultClass="vo.RecCrewVO2">
+		select 
+		c.crew_code 	crewCode
+		,c.MEM_CODE 	memCode
+		,c.RECR_GENDER 	recrGender
+		,c.RECR_START 	recrStart
+		,c.RECR_END 	recrEnd
+		,c.RECR_NEEDNUM 	recrNeednum
+		,c.RECR_CURRNUM 	recrCurrnum
+		,c.RECR_TITLE 	recrTitle
+		,c.RECR_CONTENT 	recrContent
+		,b.TM_CODE 		tmCode
+		,a.ACT_CODE		 actCode
+		from TB_CREWACT a,TB_CREWTHM b,TB_RECCREW c
+		where a.crew_code = b.crew_code 
+		and a.crew_code = c.crew_code 
+		and a.act_code like '%' || #actCode# || '%' and b.tm_code like '%' || #tmCode# || '%' and  c.recr_gender like '%' || #recrGender# || '%'
+	</select>
+
+	<select id="crewInfo" resultClass="vo.RecCrewVO2">
+		select 
+		c.crew_code 	crewCode
+		,c.MEM_CODE 	memCode
+		,c.RECR_GENDER 	recrGender
+		,c.RECR_START 	recrStart
+		,c.RECR_END 	recrEnd
+		,c.RECR_NEEDNUM 	recrNeednum
+		,c.RECR_CURRNUM 	recrCurrnum
+		,c.RECR_TITLE 	recrTitle
+		,c.RECR_CONTENT 	recrContent
+		,b.TM_CODE 		tmCode
+		,a.ACT_CODE		 actCode
+		from TB_CREWACT a,TB_CREWTHM b,TB_RECCREW c
+		where a.crew_code = b.crew_code 
+		and a.crew_code = c.crew_code 
+		and c.crew_code = #crewCode#
+	</select>
+	
+	
+
+	<insert id="insertCrewMake" parameterClass="vo.RecCrewVO">
+		 insert into TB_RECCREW
+      (CREW_CODE, MEM_CODE, RECR_GENDER, RECR_START, RECR_END, RECR_NEEDNUM, RECR_CURRNUM, RECR_TITLE, RECR_CONTENT)
+      values ((SELECT NVL(MAX(TO_NUMBER(CREW_CODE)), 0) + 1 FROM TB_RECCREW), #memCode#, #recrGender#, #recrStart#, #recrEnd#, #recrNeednum#, 1, #recrTitle#, #recrContent#)
+	</insert>
+
+	
+	<insert id="insertCrewMakeAct" parameterClass="vo.CrewActVO">	<!--회원코드,활동코드(활동명 활동코드로 변환해서 받아야함) -->
+		insert into TB_CREWACT
+		(CREW_CODE, ACT_CODE)
+		values ((SELECT NVL(MAX(TO_NUMBER(CREW_CODE)), 0) + 1 FROM TB_CREWACT) , #actCode#)
+	</insert>
+	
+	
+	<insert id="insertCrewMakeThm" parameterClass="vo.CrewThmVO">
+		insert into TB_CREWTHM
+		(CREW_CODE, TM_CODE)
+		values ((SELECT NVL(MAX(TO_NUMBER(CREW_CODE)), 0) + 1 FROM TB_CREWTHM) , #tmCode#)
+	</insert>
+
+	
+	<select id="getCrew" resultMap="campCrew">
+		select * from TB_RECCREW where CREW_CODE = #crewCode#
+	</select>
+
+
+	<select id="getCrewAct" resultMap="crewAct">
+		select * from TB_CREWACT where CREW_CODE = #crewCode#
+	</select>
+	
+	
+	<select id="getCrewThm" resultMap="crewThm">
+		select * from TB_CREWTHM where CREW_CODE = #crewCode#
+	</select>
+	
+	<select id="maxCrewCode" resultClass="int" >
+		select max(TO_NUMBER(CREW_CODE))
+		from TB_RECCREW
+	</select>
+	
+</sqlMap>
+
+<!-- 크루코드(PK)		VARCHAR2(10) -->
+<!-- 회원코드(FK)		VARCHAR2(10) -->
+<!-- 성별	CHAR(1 BYTE) -->
+<!-- 가능시작일		DATE -->
+<!-- 가능마지막일	DATE -->
+<!-- 필요인원		NUMBER -->
+<!-- 현재인원		NUMBER -->
+
+
+		
+
+  

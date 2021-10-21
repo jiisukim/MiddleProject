@@ -1,0 +1,22 @@
+package vo;
+
+public class RefCaseVO {
+
+	private String CasCode;
+	private String CasName;
+	
+	public String getCasCode() {
+		return CasCode;
+	}
+	public void setCasCode(String casCode) {
+		CasCode = casCode;
+	}
+	public String getCasName() {
+		return CasName;
+	}
+	public void setCasName(String casName) {
+		CasName = casName;
+	}
+
+	
+}

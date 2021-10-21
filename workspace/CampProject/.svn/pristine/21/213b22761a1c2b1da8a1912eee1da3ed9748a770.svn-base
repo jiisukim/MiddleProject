@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>크루 모집</title>
+</head>
+<body>
+	<div>
+		<form method="post" action="<%=request.getContextPath() %>/crew/crewMake.do">
+			<input type="hidden" name="memCode" value="m001"> <!-- 회원코드에 현재 로그인한 회원 아이디 정보 들어가야함 -->
+			<h3>제목</h3>
+			<input type="text" name="recrTitle"><br>
+			<h3>가능한 날짜</h3>
+			<input type="date" name="recrStart" id="recrStart"> - <input type="date" name="recrEnd" id="recrEnd">
+			<h3>인원 수</h3>
+			<input type="number" name="recrNeednum"><br>
+			<h3>성별</h3>
+			<input type="radio" name="recrGender" id="genderMale" value="남자"><label for="genderMale">남자</label>
+			<input type="radio" name="recrGender" id="genderFemale" value="여자"><label for="genderFemale">여자</label>
+			<input type="radio" name="recrGender" id="genderMoo" value="무관"><label for="genderMoo">무관</label>
+			<br>
+			<h3>장소</h3>
+			<!-- 테마 >> 해안, 자연, 도시, 반려동물 -->
+			<input type="radio" name="tmCode" id="sea" value="해안"><label for="sea">해안</label>
+			<input type="radio" name="tmCode" id="forest" value="자연"><label for="forest">자연</label>
+			<input type="radio" name="tmCode" id="city" value="도시"><label for="city">도시</label>
+			<input type="radio" name="tmCode" id="pet" value="반려동물"><label for="pet">반려동물</label>
+			<input type="radio" name="tmCode" id=thmMoo value="무관"><label for="thmMoo">무관</label><br>
+			<h3>활동</h3>
+			<!-- 활동 >> 등산, 낚시, 오락, 힐링 -->
+			<input type="radio" name="actCode" id="hike" value="등산"><label for="hike">등산</label>
+			<input type="radio" name="actCode" id="fishing" value="낚시"><label for="fishing">낚시</label>
+			<input type="radio" name="actCode" id="enjoy" value="오락"><label for="enjoy">오락</label>
+			<input type="radio" name="actCode" id="healing" value="힐링"><label for="healing">힐링</label>
+			<input type="radio" name="actCode" id=actMoo value="무관"><label for="actMoo">무관</label><br>
+			<br>
+			<h3>간단한 내용</h3>
+			<textarea rows="10" cols="30" name="recrContent"></textarea>
+			<button type="submit">구하기</button>
+			
+		</form>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+$("#recrStart").change(function () {	// 시작날짜가 오늘보다 전 날짜인 경우
+	var date = new Date();
+	var year = date.getFullYear(); 
+	var month = (1 + date.getMonth());          
+		month = month >= 10 ? month : '0' + month; 
+	var day = date.getDate();                 
+		day = day >= 10 ? day : '0' + day;
+	date = year + month +day;
+	
+	
+	var startDate = $("#recrStart").val();
+	startDate = startDate.replace(/-/gi, "");
+	console.log(startDate);
+	
+	
+	console.log(date);
+	if(parseInt(date) > parseInt(startDate)){
+		alert("시작날이 과거입니다.");
+		$("#recrStart").val('startDate');  	// 야매식 날짜 선택 풀리게 하기
+	}
+	
+})
+
+$("#recrEnd").change(function () {		// 끝 날짜가 시작날짜보다 빠를 시 오류창 출력
+	var startDate = $("#recrStart").val();
+	var startDate2 = startDate.replace(/-/gi, "");
+	console.log(startDate);
+	
+	var lastDate = $("#recrEnd").val();
+	lastDate = lastDate.replace(/-/gi, "");
+	console.log(lastDate);
+	
+	
+	if(parseInt(startDate2) > parseInt(lastDate)){
+		alert("마지막 날이 시작 날보다 빠릅니다.");
+		$("#recrEnd").val('startDate');		// 야매식 날짜 선택 풀리게 하기
+	}
+	
+})
+</script>
+</html>

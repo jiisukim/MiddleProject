@@ -1,0 +1,21 @@
+package vo;
+
+public class LocVO {
+
+	private String LocCode;
+	private String LocName;	
+	
+	public String getLocCode() {
+		return LocCode;
+	}
+	public void setLocCode(String locCode) {
+		LocCode = locCode;
+	}
+	public String getLocName() {
+		return LocName;
+	}
+	public void setLocName(String locName) {
+		LocName = locName;
+	}
+		
+}

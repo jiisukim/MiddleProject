@@ -1,0 +1,137 @@
+<%@page import="vo.PagingVO"%>
+<%@page import="java.util.List"%>
+<%@page import="vo.EventVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+List<EventVO> eventList = (List<EventVO>)request.getAttribute("eventList");
+PagingVO pagingVO = (PagingVO)request.getAttribute("pagingVO");
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+</script>
+<title>이벤트</title>
+
+
+<style type="text/css">
+	table.type09 {
+		text-align: left;
+		border-collapse: collapse;
+		line-height: 1.5;
+		margin: auto;
+	}
+	
+	table.type09 thead th {
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		color: #369;
+		border-bottom: 3px solid #036;
+	}
+	
+	table.type09 tbody th {
+		width: 100px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+		background-color: navy;
+		color: white;
+		
+	}
+	
+	table.type09 td {
+		width: 400px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	h1 {
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+
+<%-- <%@include file="/WEB-INF/views/include/header.jsp" %> --%>
+
+
+	<div class="container">
+	  <h2><i class="fas fa-exclamation-circle"></i>이벤트</h2>
+	  <br><br><br>
+	  <br><br><br>
+	  
+	<table class="type09" border="1">
+		<thead>
+			<tr>
+				<th style="width: 200px;">등록일</th>
+				<th>제목</th>
+				<th style="width: 200px;">이벤트 시작날</th>
+				<th style="width: 200px;">이벤트 종료날</th>
+			</tr>
+		</thead>
+		<%
+				int eventSize = eventList.size();
+				if (eventSize > 0) { // 사이즈가 0보다 클때 : 공지사항 게시물이 있을 때
+					for (int i = 0; i < eventSize; i++) {
+						String date = eventList.get(i).getEvnDate();
+						date = date.substring(0, 10);
+			%>
+		<tbody>
+			<tr>
+				<td style="width: 200px;"><%= date %></td>
+				<td><a
+					href="view.do?evnCode=<%= eventList.get(i).getEvnCode() %>"><%= eventList.get(i).getEvnTitle() %></a></td>
+				<td style="width: 200px;"><%= eventList.get(i).getEvnStart() %></td>
+				<td style="width: 200px;"><%= eventList.get(i).getEvnEnd() %></td>
+			</tr>
+		</tbody>
+		<%		
+			 } // for문
+		%>
+
+		<!-- 페이징 처리 시작 -->
+		<tr>
+			<td colspan="4" align="center">
+				<%if(pagingVO.getFirstPageNo() > pagingVO.getPageSize()) { %> <a
+				href="list.do?pageNo=<%=pagingVO.getFirstPageNo() - pagingVO.getPageSize() %>">[이전]</a>
+				<%} %> <%for(int pNo = pagingVO.getFirstPageNo(); pNo <= pagingVO.getLastPageNo(); pNo++){ %>
+				<a <%if(pNo == pagingVO.getCurrentPageNo()){ %>
+				style="color: green;" <%} %> href="list.do?pageNo=<%=pNo %>">[<%=pNo %>]
+			</a> <%} %> <%if(pagingVO.getLastPageNo() < pagingVO.getTotalPageCount()) { %>
+				<a
+				href="list.do?pageNo=<%=pagingVO.getFirstPageNo() + pagingVO.getPageSize() %>">[다음]</a>
+				<%} %>
+			</td>
+		</tr>
+		<!-- 페이징 처리 끝 -->
+		<% 		
+			}else{ // 회원정보가 존재하지 않으면...
+			%>
+		<tr align="center">
+			<td colspan="4">이벤트글이 올라오지 않았습니다.</td>
+		</tr>
+		<%
+			}
+		%>
+		<tr align="center">
+			<div class="btns" style="float: right;">
+				<td colspan="4"><a href="insert.do"><button class="btn btn-default"><i class="far fa-edit"></i>게시글 등록</button></a>
+			<div>
+		</tr>
+			
+	</table>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+package vo;
+
+public class ActVO {
+	
+	private String ActCode;
+	private String ActName;
+	
+	public String getActCode() {
+		return ActCode;
+	}
+	public void setActCode(String actCode) {
+		ActCode = actCode;
+	}
+	public String getActName() {
+		return ActName;
+	}
+	public void setActName(String actName) {
+		ActName = actName;
+	}
+
+	
+}

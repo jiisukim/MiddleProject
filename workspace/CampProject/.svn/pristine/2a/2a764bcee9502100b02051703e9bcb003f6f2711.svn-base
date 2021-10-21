@@ -1,0 +1,90 @@
+<%@page import="java.util.List"%>
+<%@page import="vo.RecCrewVO2"%>
+<%@page import="vo.CrewThmVO"%>
+<%@page import="vo.CrewActVO"%>
+<%@page import="vo.RecCrewVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	List<RecCrewVO2> rcv = (List<RecCrewVO2>)request.getAttribute("rv");
+
+	MemVO mv = (MemVO)request.getAttribute("mv");
+%>     
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>게시글</title>
+
+</head>
+<body>
+<body>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
+	<div class="container">
+	<br><br><br><br><br><br><br><br><br>
+	<table border="1">
+	 	 	<tr>
+		      <td>제목</td>
+		      <td>날짜</td>
+		      <td>테마</td>
+		      <td>활동</td>
+		      <td>인원</td>
+		    </tr>
+<%
+	int size = rcv.size();
+	if(size > 0){
+		for(int i=0; i<size; i++){
+			String startDate = rcv.get(i).getRecrStart();
+			startDate = startDate.substring(0,10);
+  			String endDate = rcv.get(i).getRecrEnd();
+  			endDate = endDate.substring(0,10);
+  			
+			String act = rcv.get(i).getActCode();
+			if("a001".equals(act)) {
+				act= "등산";
+			}else if("a002".equals(act)){
+				act = "낚시";
+			}else if("a003".equals(act)){
+				act = "오락";
+			}else if("a004".equals(act)){
+				act = "힐링";
+			}else if("a005".equals(act)){
+				act = "무관";
+			}
+			String thm = rcv.get(i).getTmCode();
+			if("t001".equals(thm)) {
+				thm = "해안";
+			}else if("t002".equals(thm)){
+				thm = "자연";
+			}else if("t003".equals(thm)){
+				thm = "도시";
+			}else if("t004".equals(thm)){
+				thm = "반려동물";
+			}else if("t005".equals(thm)){
+				thm = "무관";
+			}
+	%>
+	<tr>
+		<td><a href="crewViewthr.do?crewCode=<%=rcv.get(i).getCrewCode() %>"><%=rcv.get(i).getRecrTitle() %></a></td>
+		<td><%=startDate %> - <%=endDate %></td>
+		<td><%=thm %></td>
+		<td><%=act %></td>
+		<td><%=rcv.get(i).getRecrNeednum() %></td>
+	</tr>
+			
+<%			
+		} //for문끝
+	}else{				// 사이즈가 0일때 : 공지사항 게시물이 없을 때
+	  %>
+	  	<tr>
+			<td colspan="5">관련크루가 없습니다.</td>
+		</tr>
+	  <%
+		}
+	  %>	
+	</table>
+	</div>
+</body>
+
+</html>

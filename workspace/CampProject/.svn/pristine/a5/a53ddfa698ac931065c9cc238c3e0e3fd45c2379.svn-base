@@ -1,0 +1,36 @@
+package vo;
+
+public class RefundVO {
+
+	private String RefCode;
+	private String BkCode;
+	private String CasCode;
+	private String RefDate;
+	
+	public String getRefCode() {
+		return RefCode;
+	}
+	public void setRefCode(String refCode) {
+		RefCode = refCode;
+	}
+	public String getBkCode() {
+		return BkCode;
+	}
+	public void setBkCode(String bkCode) {
+		BkCode = bkCode;
+	}
+	public String getCasCode() {
+		return CasCode;
+	}
+	public void setCasCode(String casCode) {
+		CasCode = casCode;
+	}
+	public String getRefDate() {
+		return RefDate;
+	}
+	public void setRefDate(String refDate) {
+		RefDate = refDate;
+	}
+
+	
+}

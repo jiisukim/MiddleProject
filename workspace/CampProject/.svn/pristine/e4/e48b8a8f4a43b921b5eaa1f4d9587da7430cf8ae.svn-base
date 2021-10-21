@@ -1,0 +1,29 @@
+package vo;
+
+public class BstLikeVO {
+
+	private String BlkCode;
+	private String BstCode;
+	private String MemCode;
+	
+	public String getBlkCode() {
+		return BlkCode;
+	}
+	public void setBlkCode(String blkCode) {
+		BlkCode = blkCode;
+	}
+	public String getBstCode() {
+		return BstCode;
+	}
+	public void setBstCode(String bstCode) {
+		BstCode = bstCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}	
+	
+
+}

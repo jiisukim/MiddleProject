@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin">
+
+	<resultMap class="vo.MemVO" id="adminMap">
+	<result property="memCode" column="MEM_CODE"/>
+	<result property="memId" column="MEM_ID"/>
+	<result property="memPw" column="MEM_PW"/>
+	<result property="memNick" column="MEM_NICK"/>
+	<result property="memName" column="MEM_NAME"/>
+	<result property="memBir" column="MEM_BIR"/>
+	<result property="memGen" column="MEM_GEN"/>
+	<result property="memEmail" column="MEM_EMAIL"/>
+	<result property="memTel" column="MEM_TEL"/>
+	<result property="memPoint" column="MEM_POINT"/>
+	<result property="memDelyn" column="MEM_DELYN"/>
+    </resultMap>
+
+	<!--전체 조회  -->
+	<select id="getMemAll" resultClass="adminMap">
+	  select AA.*
+      from
+      (select A.*, ROWNUM AS RNUM
+      from 
+      (select ,MEM_CODE
+            ,MEM_ID
+            ,MEM_NICK
+            ,MEM_NAME
+            ,MEM_BIR
+            ,MEM_EMAIL
+            ,MEM_TEL
+      from TB_MEM
+      ORDER BY TO_NUMBER(MEM_CODE) DESC
+      )A ) AA
+      where AA.rnum between #firstRecNo# and #lastRecNo#
+	</select>
+	
+	<!--페이징  -->
+	<select id="getTotalCnt" resultClass="int">
+       SELECT COUNT(*) AS CNT FROM TB_MEM
+    </select>
+    
+	<!--1개 조회  -->
+    <select id="getMem" resultMap="adminMap">
+        SELECT * FROM TB_MEM WHERE MEM_CODE = #memCode#
+    </select> 
+	
+	<!--회원 삭제  -->
+	<delete id="deleteMem" parameterClass="String">
+		DELETE FROM TB_MEM WHERE MEM_CODE = #memCode#
+	</delete>
+	<!--회원 수정  -->
+	    <update id="updateMem" parameterClass="vo.MemVO">
+			UPDATE TB_MEM
+			SET MEM_ID = #memId#
+			,MEM_NICK = #memNick#
+			where MEM_CODE = #memCode#
+  	   </update>
+</sqlMap>

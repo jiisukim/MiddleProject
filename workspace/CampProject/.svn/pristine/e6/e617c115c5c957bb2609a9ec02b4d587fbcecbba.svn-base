@@ -1,0 +1,129 @@
+package campingCrew.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import campingCrew.dao.CampingCrewDaoImpl;
+import campingCrew.dao.ICampingCrewDao;
+import notice.service.HostNoticeService;
+import notice.service.IHostNoticeService;
+import util.SqlMapClientFactory;
+import vo.CrewActVO;
+import vo.CrewThmVO;
+import vo.NoticeVO;
+import vo.RecCrewVO;
+
+public class CampingCrewServiceImpl implements ICampingCrewService{
+
+	private ICampingCrewDao camCrewDao;
+	
+	private static ICampingCrewService campCrewService;
+	
+	private SqlMapClient smc;
+	
+	private CampingCrewServiceImpl () {
+		camCrewDao = CampingCrewDaoImpl.getInstance();
+		smc = SqlMapClientFactory.getInstance();
+	}
+	public static ICampingCrewService getInstance() {
+		if(campCrewService == null) {
+			campCrewService = new CampingCrewServiceImpl();
+		}
+		
+		return campCrewService;
+	}
+	
+	
+	@Override
+	public int insertCrewMake(RecCrewVO rv) {
+		int cnt = 0;
+		
+		try {
+			cnt = camCrewDao.insertCrewMake(smc, rv);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+
+	@Override
+	public int insertCrewMakeAct(CrewActVO cav) {
+		int cnt = 0;
+		
+		try {
+			cnt = camCrewDao.insertCrewMakeAct(smc, cav);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+
+	@Override
+	public int insertCrewMakeThm(CrewThmVO ctm) {
+		int cnt = 0;
+		
+		try {
+			cnt = camCrewDao.insertCrewMakeThm(smc, ctm);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	@Override
+	public RecCrewVO getCrew(String crewCode) {
+		RecCrewVO rv = null;
+		try {
+			rv = camCrewDao.getCrew(smc, crewCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rv;
+	}
+	@Override
+	public CrewActVO getCrewAct(String crewCode) {
+		CrewActVO cav = null;
+		try {
+			cav = camCrewDao.getCrewAct(smc, crewCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cav;
+	}
+	@Override
+	public CrewThmVO getCrewThm(String crewCode) {
+		CrewThmVO ctv = null;
+		try {
+			ctv = camCrewDao.getCrewThm(smc, crewCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ctv;
+	}
+	@Override
+	public int maxCrewCode() {
+		int cnt = 0;
+		
+		try {
+			cnt = camCrewDao.maxCrewCode(smc);
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+				
+		return cnt;
+	}
+	@Override
+	public List<RecCrewVO> checkCrewCtgr(RecCrewVO rv) throws SQLException {
+		List<RecCrewVO> crewList = new ArrayList<RecCrewVO>();
+		try {
+			crewList = camCrewDao.checkCrewCtgr(smc, rv);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return crewList;
+	}
+
+}

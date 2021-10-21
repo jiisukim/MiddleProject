@@ -1,0 +1,29 @@
+package vo;
+
+public class CampDibVO {
+	
+	private String CdbCode;
+	private String MemCode;
+	private String CmpCode;
+	
+	public String getCdbCode() {
+		return CdbCode;
+	}
+	public void setCdbCode(String cdbCode) {
+		CdbCode = cdbCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getCmpCode() {
+		return CmpCode;
+	}
+	public void setCmpCode(String cmpCode) {
+		CmpCode = cmpCode;
+	}
+	
+	
+}

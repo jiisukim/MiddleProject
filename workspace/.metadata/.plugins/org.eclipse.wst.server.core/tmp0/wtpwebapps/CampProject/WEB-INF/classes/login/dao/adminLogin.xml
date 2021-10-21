@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="adminLogin">
+
+	<select id="chkAdmin" parameterClass="String" resultClass="vo.AdminVO">
+		
+		SELECT
+		
+		ADM_CODE      adminCode
+		, ADM_ID      adminId
+		, ADM_PW      adminPw
+		, ADM_NICK    adminNick
+		
+	    FROM TB_Admin
+	    WHERE ADM_ID = #adminId#	 
+	      
+	</select>
+
+
+
+</sqlMap>

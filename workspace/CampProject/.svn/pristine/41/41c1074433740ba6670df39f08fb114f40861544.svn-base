@@ -1,0 +1,21 @@
+package vo;
+
+public class UsedImgVO {
+
+	private String UsedCode;
+	private String FileId;
+	public String getUsedCode() {
+		return UsedCode;
+	}
+	public void setUsedCode(String usedCode) {
+		UsedCode = usedCode;
+	}
+	public String getFileId() {
+		return FileId;
+	}
+	public void setFileId(String fileId) {
+		FileId = fileId;
+	}
+	
+	
+}

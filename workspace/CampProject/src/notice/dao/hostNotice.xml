@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+         
+<sqlMap namespace="hostNotice">
+   <resultMap class="vo.NoticeVO" id="noticeMap">
+      <result property="ntcCode" column="NTC_CODE"/>
+      <result property="admCode" column="ADM_CODE"/>
+      <result property="ntcTitle" column="NTC_TITLE"/>
+      <result property="ntcCon" column="NTC_CON"/>
+      <result property="ntcDate" column="NTC_DATE"/>
+   </resultMap>
+
+    <select id="getNoticeAll" resultMap="noticeMap">
+       
+      select AA.*
+      from
+      (select A.*, rownum as rnum
+      from 
+      (select NTC_CODE
+            ,ADM_CODE
+            ,NTC_TITLE
+            ,NTC_CON
+            ,NTC_DATE
+      from TB_NOTICE
+      ORDER BY TO_NUMBER(NTC_CODE) desc
+      ) A  ) AA 
+      where AA.rnum between #firstRecNo# and #lastRecNo#
+       
+    </select>
+   
+   <insert id="insertNotice" parameterClass="vo.NoticeVO">
+       
+       insert into TB_NOTICE
+      (NTC_CODE, ADM_CODE, NTC_TITLE, NTC_CON, NTC_DATE)
+      values ((SELECT NVL(MAX(TO_NUMBER(NTC_CODE)), 0) + 1 FROM TB_NOTICE), #admCode#, #ntcTitle#, #ntcCon#, to_char(sysdate,'yyyy-mm-dd'))
+       
+    </insert>
+    
+   <update id="updateNotice" parameterClass="vo.NoticeVO">
+    
+       update TB_NOTICE
+      set NTC_TITLE = #ntcTitle#
+         ,NTC_CON = #ntcCon#
+      where NTC_CODE = #ntcCode#
+    
+    </update>
+    
+    
+    <delete id="deleteNotice" parameterClass="String">
+    
+       delete from TB_NOTICE where NTC_CODE = #ntcCode#
+
+    </delete>
+    
+    <select id="getTotalCnt" resultClass="int">
+       
+       select count(*) as cnt
+      from TB_NOTICE
+    
+    </select>
+    
+    <select id="getNotice" resultMap="noticeMap">
+    
+       select *  from TB_NOTICE where NTC_CODE = #ntcCode#
+       
+    </select>
+    
+    <select id="searchNotice" resultMap="noticeMap">
+    
+       select * from TB_NOTICE where NTC_TITLE like '%' || #ntcTitle# || '%'
+       
+    </select>
+</sqlMap>

@@ -1,0 +1,42 @@
+package vo;
+
+public class QnaVO {
+	
+	private String QnaCode;
+	private String MemCode;
+	private String QnaTitle;
+	private String QnaCon;
+	private String QnaDate;
+	
+	public String getQnaCode() {
+		return QnaCode;
+	}
+	public void setQnaCode(String qnaCode) {
+		QnaCode = qnaCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getQnaTitle() {
+		return QnaTitle;
+	}
+	public void setQnaTitle(String qnaTitle) {
+		QnaTitle = qnaTitle;
+	}
+	public String getQnaCon() {
+		return QnaCon;
+	}
+	public void setQnaCon(String qnaCon) {
+		QnaCon = qnaCon;
+	}
+	public String getQnaDate() {
+		return QnaDate;
+	}
+	public void setQnaDate(String qnaDate) {
+		QnaDate = qnaDate;
+	}
+	
+}

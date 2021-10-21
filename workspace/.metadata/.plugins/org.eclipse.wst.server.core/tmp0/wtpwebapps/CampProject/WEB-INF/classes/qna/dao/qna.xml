@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="qna">
+
+<!-- 
+데이터베이스 컬럼과 자바와 맞춰주기 위한 리절트맵 
+	:팀장님 설명추가 : 리절트맵은 가급적 쓰지 않기로 .
+				이거 안쓰고 하는 방법은 쌤께 나중에 함 물어보면 좋다
+db에서 열을 복사해와서 카멜표기법 변환으로 바꿔서 복붙
+ -->
+	<resultMap class="vo.QnaVO" id="qnaMap"> 
+	   <result property="qnaCode"  column="QNA_CODE"/>
+       <result property="memCode"  column="MEM_CODE"/>
+       <result property="qnaTitle" column="QNA_TITLE"/>
+       <result property="qnaCon"   column="QNA_CON"/>
+       <result property="qnaDate"  column="QNA_DATE"/>
+       <result property="memNick"  column="MEM_NICK"/>
+	</resultMap>
+	
+<!-- 	
+등록		: 멤버코드는 세션에서 가져와야하는데 어떻게 가져오지??
+-->
+	<insert id="insertQna" parameterClass="vo.QnaVO">
+		insert into TB_QNA
+		(QNA_CODE, MEM_CODE, QNA_TITLE, QNA_CON, QNA_DATE)
+		VALUES
+		(((SELECT NVL(MAX(to_number(QNA_CODE)), 0) + 1 FROM TB_QNA),
+		#memCode#, #qnaTitle#, #qnaCon#, SYSDATE)
+		
+	</insert>
+	
+<!-- 	
+수정		: 본인이 작성한 글만 수정할 수 있도록 해야하는데 맞는 방법일까? 
+			그리고 멤버코드는 수정할 수 없는 건데 맞겠지? 
+			작성 날짜도 변경 불가 맞지?? 수정한 시간 또는 날짜이력도 써야 할까??
+-->
+	<update id="updateQna" parameterClass="vo.QnaVO">
+	
+		update TB_QNA
+		set
+		QNA_TITLE   =   #qnaTitle#
+		, QNA_CON     =   #qnaCon#
+		where
+		QNA_CODE    =   #qnaCode#
+		and
+		MEM_CODE    =   #memCode#
+	
+	</update>
+	
+<!-- 	
+삭제		: 본인이 쓴 글만 삭제 할 수 있도록 해야한다.
+-->
+	<delete id="deleteQna" parameterClass="String">
+	
+		delete from TB_QNA
+		where
+		QNA_CODE    =   #qnaCode#
+		and
+		MEM_CODE    =   #memCode#
+	
+	</delete>
+	
+<!-- 
+전체조회		: #firstRecNo# and #lastRecNo#가 갑자기 왜 나오지??	 
+-->
+	<select id="getQnaAll" resultMap="qnaMap">
+		
+		select AA.*
+		from
+		(
+		    select A.*, rownum as rnum
+		    from
+		    (      
+		       select QNA_CODE, m.MEM_CODE, QNA_TITLE, QNA_CON, MEM_NICK, QNA_DATE
+		       from TB_QNA q, TB_MEM m
+		       where q.MEM_CODE = m.MEM_CODE
+		        order by QNA_CODE desc
+		    ) A
+		)AA
+		where AA.rnum between #firstRecNo# and #lastRecNo#
+	
+	</select>
+	
+<!-- 
+페이징처리	 : 잘 모르겠는데 그냥 따라씀
+-->
+	
+	<select id="getTotalCnt" resultClass="int">
+       select count(*) as cnt from TB_QNA
+    </select>
+
+<!-- 
+글하나 선택해서 세부적으로 읽기 
+-->
+
+	<select id="getQna" resultMap="qnaMap">
+       select * from TB_QNA where QNA_CODE = #qnaCode#
+    </select>
+	
+	<select id="getMemNick" parameterClass="vo.QnaVO" resultClass="String">		
+		SELECT DISTINCT A.MEM_NICK
+		FROM TB_MEM A, TB_QNA B
+		WHERE A.MEM_CODE = #memCode#
+			AND A.MEM_CODE = B.MEM_CODE	
+	</select>
+	
+	
+</sqlMap>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,82 @@
+<%@page import="vo.AtFileVO"%>
+<%@page import="vo.EventVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	EventVO eventVO = (EventVO)request.getAttribute("eventVO");
+
+	 List<AtFileVO> fileList = (List<AtFileVO>)request.getAttribute("fileList");
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+ <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ 
+<title>게시글 정보</title>
+<style type="text/css">
+	table {
+    	width: 100%;
+    	border-top: 1px solid #444444;
+    	border-collapse: collapse;
+	  }
+	th, td {
+    	border-bottom: 1px solid #444444;
+    	padding: 10px;
+  	  }
+  	  a{
+  	  	text-decoration: none;
+  	  	border: navy solid 2px;
+  	  	border-radius: 5px;
+  	  	background-color: black;
+  	  	color: white; 
+  	  }
+  	  #aaa{
+  	  	
+  	  }
+</style>
+</head>
+<body>
+	<h1>Event</h1>
+	<br><br><br>
+	<table border="1">
+		<tr style="height: 70px;">
+			<th style="background-color: navy; color: white;">제목</th>
+			<th><%=eventVO.getEvnTitle() %></th>
+			<th style="background-color: navy; color: white;">내용</th>
+			<th><%=eventVO.getEvnCon() %></th>
+		</tr>
+		<tr>
+			<td height="500px">이미지</td>
+			<td style="height: 500px;" colspan="3">
+				<%if(fileList != null){ %> 
+				
+					<%for(AtFileVO fileVO : fileList){ %>
+
+				<div>
+					<img id="aaa" src="<%=request.getContextPath() %>/filedownload.do?fileId=<%=fileVO.getFileId()%>&fileNo=<%=fileVO.getFileNo()%>" />
+					<br><br><br>
+					
+					<p style="display: inline;">첨부파일: </p>
+					<a
+						href="<%=request.getContextPath() %>/filedownload.do?fileId=<%=fileVO.getFileId()%>&fileNo=<%=fileVO.getFileNo()%>">
+						<%=fileVO.getFileOrigin() %>
+					</a>
+				</div> 
+					<%} %>
+				
+				 <%} %>
+
+			</td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<a href="list.do">목록</a>
+	<a href="update.do?evnCode=<%=eventVO.getEvnCode() %>">게시글 수정</a>
+	<a href="delete.do?evnCode=<%=eventVO.getEvnCode() %>">게시글 삭제</a>
+</body>
+</html>

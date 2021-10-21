@@ -1,0 +1,77 @@
+package vo;
+
+public class RecCrewVO {
+
+	private String crewCode;
+	private String memCode;
+	private String recrGender;
+	private String recrStart;
+	private String recrEnd;
+	private String recrNeednum;
+	private String recrCurrnum;
+	private String recrTitle; 
+	private String recrContent;
+	public String getCrewCode() {
+		return crewCode;
+	}
+	public void setCrewCode(String crewCode) {
+		this.crewCode = crewCode;
+	}
+	public String getMemCode() {
+		return memCode;
+	}
+	public void setMemCode(String memCode) {
+		this.memCode = memCode;
+	}
+	public String getRecrGender() {
+		return recrGender;
+	}
+	public void setRecrGender(String recrGender) {
+		this.recrGender = recrGender;
+	}
+	public String getRecrStart() {
+		return recrStart;
+	}
+	public void setRecrStart(String recrStart) {
+		this.recrStart = recrStart;
+	}
+	public String getRecrEnd() {
+		return recrEnd;
+	}
+	public void setRecrEnd(String recrEnd) {
+		this.recrEnd = recrEnd;
+	}
+	public String getRecrNeednum() {
+		return recrNeednum;
+	}
+	public void setRecrNeednum(String recrNeednum) {
+		this.recrNeednum = recrNeednum;
+	}
+	public String getRecrCurrnum() {
+		return recrCurrnum;
+	}
+	public void setRecrCurrnum(String recrCurrnum) {
+		this.recrCurrnum = recrCurrnum;
+	}
+	public String getRecrTitle() {
+		return recrTitle;
+	}
+	public void setRecrTitle(String recrTitle) {
+		this.recrTitle = recrTitle;
+	}
+	public String getRecrContent() {
+		return recrContent;
+	}
+	public void setRecrContent(String recrContent) {
+		this.recrContent = recrContent;
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

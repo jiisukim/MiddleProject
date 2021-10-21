@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+						
+<sqlMap namespace="campingCrud">
+
+	<resultMap class="vo.CampHostVO" id="campingMap">
+      <result property="cmpCode" column="CMP_CODE"/>
+      <result property="cmpId" column="CMP_ID"/>
+      <result property="cmpPw" column="CMP_PW"/>
+      <result property="cmpNick" column="CMP_NICK"/>
+      <result property="cmpHostname" column="CMP_HOSTNAME"/>
+      <result property="cmpTel" column="CMP_TEL"/>
+      <result property="cmpDesc" column="CMP_DESC"/>
+      <result property="cmpConv" column="CMP_CONV"/>
+      <result property="cmpFee" column="CMP_FEE"/>
+      <result property="cmpSitenum" column="CMP_SITENUM"/>
+      <result property="cmpLati" column="CMP_LATI"/>
+      <result property="cmpLong" column="CMP_LONG"/>
+      <result property="cmpLoadaddr" column="CMP_LOADADDR"/>
+      <result property="cmpAddr" column="CMP_ADDR"/>
+      <result property="cmpAppyn" column="CMP_APPYN"/>
+<!--       <result property="CmpCode" column="CMP_CODE"/> -->
+<!--       <result property="FileId" column="FILE_ID"/> -->
+   </resultMap>
+
+
+	<select id="getCamping" resultMap="campingMap">
+ 	 
+ 		select FILE_ID, CMP_HOSTNAME, CMP_ID, CMP_TEL, CMP_DESC, CMP_CONV, CMP_FEE, CMP_SITENUM, CMP_ADDR 
+ 		from TB_CAMPHOST H, TB_CAMPIMG I
+ 		where CMP_ID = #cmpId#
+ 		and I.CMP_CODE = H.CMP_CODE
+ 		
+ 	</select>
+	
+ 	<!-- 가격 , 수용인원(야영사이트 수), 편의시설, 캠핑장 설명  // 비밀번호 , 전화번호-->
+	<update id="updateCamping" parameterClass="vo.CampHostVO">
+ 		update TB_CAMPHOST
+		set CMP_PW = #cmpPw#
+		   ,CMP_TEL = #cmpTel#
+		   ,CMP_FEE = #cmpFee#
+		   ,CMP_CONV = #cmpConv#
+		   ,CMP_DESC = #cmpDesc#
+		   ,CMP_SITENUM = #cmpSitenum#
+		where CMP_ID = #cmpId#
+ 	</update>
+ 	
+ 	<!--  회원탈퇴  -->
+ 	<delete id="deleteCamping" parameterClass="String">
+ 	
+ 		delete from TB_CAMPHOST where CMP_ID = #cmpId#
+
+ 	</delete>
+
+		
+</sqlMap>		
+			

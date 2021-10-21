@@ -1,0 +1,88 @@
+<%@page import="vo.PagingVO"%>
+<%@page import="java.util.List"%>
+<%@page import="vo.EventVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+List<EventVO> eventList = (List<EventVO>)request.getAttribute("eventList");
+	
+	
+	PagingVO pagingVO = (PagingVO)request.getAttribute("pagingVO");
+
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>이짝워뗘 게시판</title>
+</head>
+<body>
+
+	<h1> 게시판 </h1>
+	<table border="1">
+		<tr>
+			<td>등록일</td>
+			<td>제목</td>
+			<td>이벤트 시작날</td>
+			<td>이벤트 종료날</td>
+		</tr>
+
+		<%
+			int eventSize = eventList.size();
+			if (eventSize > 0) { // 사이즈가 0보다 클때 : 공지사항 게시물이 있을 때
+				for (int i = 0; i < eventSize; i++) {
+					String date = eventList.get(i).getEvnDate();
+					date = date.substring(0, 10);
+		%>
+		<tr>
+			<td><%= date %></td>
+			<td><a href="view.do?evnCode=<%= eventList.get(i).getEvnCode() %>"><%= eventList.get(i).getEvnTitle() %></a></td>
+			<td><%= eventList.get(i).getEvnStart() %></td>
+			<td><%= eventList.get(i).getEvnEnd() %></td>
+		</tr>
+		<%		
+		 } // for문
+	%>
+
+		<!-- 페이징 처리 시작 -->
+		<tr>
+			<td colspan="4" align="center">
+				<%if(pagingVO.getFirstPageNo() > pagingVO.getPageSize()) { %> <a
+				href="list.do?pageNo=<%=pagingVO.getFirstPageNo() - pagingVO.getPageSize() %>">[이전]</a>
+				<%} %> <%for(int pNo = pagingVO.getFirstPageNo(); pNo <= pagingVO.getLastPageNo(); pNo++){ %>
+				<a <%if(pNo == pagingVO.getCurrentPageNo()){ %>
+				style="color: green;" <%} %> href="list.do?pageNo=<%=pNo %>">[<%=pNo %>]
+			</a> <%} %> <%if(pagingVO.getLastPageNo() < pagingVO.getTotalPageCount()) { %>
+				<a
+				href="list.do?pageNo=<%=pagingVO.getFirstPageNo() + pagingVO.getPageSize() %>">[다음]</a>
+				<%} %>
+			</td>
+		</tr>
+		<!-- 페이징 처리 끝 -->
+		<% 		
+		}else{ // 회원정보가 존재하지 않으면...
+	%>
+		<tr>
+			<td colspan="4">게시글 정보가 없습니다.</td>
+		</tr>
+		<%
+		}
+	%>
+		<tr align="center">
+			<td colspan="4"><a href="insert.do">[게시글 등록]</a></td>
+		</tr>
+
+	</table>
+
+	<%-- <%
+if(msg.equals("성공")){
+%>	
+<script type="text/javascript">
+	alert('정상적으로 처리 되었습니다.')
+</script>	
+<%
+}
+%> --%>
+</body>
+</html>

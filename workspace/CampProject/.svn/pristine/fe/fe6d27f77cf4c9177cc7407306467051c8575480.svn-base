@@ -1,0 +1,43 @@
+package vo;
+
+public class BstReplyVO {
+	
+	private String BRPL_CODE;
+	private String BST_CODE;
+	private String MEM_CODE;
+	private String BRPL_CON;
+	private String BRPL_DATE;	
+	
+	public String getBRPL_CODE() {
+		return BRPL_CODE;
+	}
+	public void setBRPL_CODE(String bRPL_CODE) {
+		BRPL_CODE = bRPL_CODE;
+	}
+	public String getBST_CODE() {
+		return BST_CODE;
+	}
+	public void setBST_CODE(String bST_CODE) {
+		BST_CODE = bST_CODE;
+	}
+	public String getMEM_CODE() {
+		return MEM_CODE;
+	}
+	public void setMEM_CODE(String mEM_CODE) {
+		MEM_CODE = mEM_CODE;
+	}
+	public String getBRPL_CON() {
+		return BRPL_CON;
+	}
+	public void setBRPL_CON(String bRPL_CON) {
+		BRPL_CON = bRPL_CON;
+	}
+	public String getBRPL_DATE() {
+		return BRPL_DATE;
+	}
+	public void setBRPL_DATE(String bRPL_DATE) {
+		BRPL_DATE = bRPL_DATE;
+	}
+	
+	
+}

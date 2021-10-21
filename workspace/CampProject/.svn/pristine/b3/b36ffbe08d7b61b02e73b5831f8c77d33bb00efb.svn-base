@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="hostLogin">
+
+	<select id="chkHost" parameterClass="String" resultClass="vo.CampHostVO">
+		
+		SELECT
+		
+		CMP_CODE
+		, CMP_ID          hostId
+		, CMP_PW          hostPw
+		, CMP_NICK        hostNick
+	    , CMP_HOSTNAME    hostName
+	    , CMP_TEL         hostTel
+	    , CMP_DESC        hostDesc
+	    , CMP_CONV        hostConv
+	    , CMP_FEE         hostFee
+	    , CMP_SITENUM     hostSiteNum
+	    , CMP_LATI        hostLati
+	    , CMP_LONG        hostLong
+	    , CMP_LOADADDR    hostLoadAddr
+	    , CMP_ADDR        hostAddr
+	    , CMP_APPYN       hostAppyn
+	    
+	    FROM TB_CampHost
+	    WHERE CMP_ID = #hostId#	   
+	</select>
+
+
+
+</sqlMap>

@@ -1,0 +1,36 @@
+package campingCrud.handler;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import campingCrud.service.CampingServiceImpl;
+import campingCrud.service.ICampingService;
+import handler.CommandHandler;
+import vo.CampHostVO;
+
+public class ListCampingHandler implements CommandHandler {
+
+	private static final String VIEW_PAGE = "/WEB-INF/host/campList";
+
+	private ICampingService campingService = CampingServiceImpl.getInstance();
+
+	@Override
+	public boolean isRedirect(HttpServletRequest req) {
+
+		return false; // 포워드       true: 리다이렉트
+	}
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+		String cmpId = req.getParameter("cmpId");
+		// 2. 회원정보 조회
+		List<CampHostVO> campingList = campingService.getAllCampingList(cmpId);
+
+		req.setAttribute("campingList", campingList);
+
+		return VIEW_PAGE;
+	}
+}

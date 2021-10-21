@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+         
+<sqlMap namespace="campingCrew">
+	<resultMap class="vo.RecCrewVO" id="campCrew">
+		<result property="crewCode" column="CREW_CODE"/>
+		<result property="memCode" column="MEM_CODE"/>
+		<result property="recrGender" column="RECR_GENDER"/>
+		<result property="recrStart" column="RECR_START"/>
+		<result property="recrEnd" column="RECR_END"/>
+		<result property="recrNeednum" column="RECR_NEEDNUM"/>
+		<result property="recrCurrnum" column="RECR_CURRNUM"/>
+	</resultMap>
+
+
+
+</sqlMap>
+
+<!-- 크루코드(PK)		VARCHAR2(10) -->
+<!-- 회원코드(FK)		VARCHAR2(10) -->
+<!-- 성별	CHAR(1 BYTE) -->
+<!-- 가능시작일		DATE -->
+<!-- 가능마지막일	DATE -->
+<!-- 필요인원		NUMBER -->
+<!-- 현재인원		NUMBER -->
+
+  

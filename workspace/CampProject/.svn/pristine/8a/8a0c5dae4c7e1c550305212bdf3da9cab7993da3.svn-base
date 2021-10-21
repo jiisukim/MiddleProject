@@ -1,0 +1,5 @@
+package campingCrew.dao;
+
+public interface ICampingCrew {
+
+}

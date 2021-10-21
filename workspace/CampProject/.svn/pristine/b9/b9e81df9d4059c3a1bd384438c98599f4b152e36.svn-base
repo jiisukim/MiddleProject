@@ -1,0 +1,60 @@
+package join;
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class JavaForTest {
+
+	
+		public static void main(String[] args) {
+			String pw = "gksrl";
+			System.out.println(pw);
+			
+			String result= bytesToHex(sha256(pw));
+			
+			System.out.println(result);
+			System.out.println(result.length());
+			System.out.println("========================================");
+			
+			String names = "상하수도시설 화장실 취사시설 주차장 물놀이장 ";
+			String[] na = names.split(" ");
+			for( String str : na) {
+				System.out.println(str);
+			}
+			System.out.println("끝");
+		}	
+	
+		
+		private static byte[] sha256(String password){
+			
+			MessageDigest digest;
+			try {
+				digest = MessageDigest.getInstance("SHA-256");
+				digest.reset();
+				return digest.digest(password.getBytes("UTF-8"));
+				
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch(UnsupportedEncodingException ex) {
+				ex.printStackTrace();
+			}
+			
+			return null;
+		}
+		
+		
+		
+		private static String bytesToHex(byte[] hash) {
+			
+			StringBuilder builder = new StringBuilder();
+			for(byte b : hash) {
+				builder.append(String.format("%02x", b));    
+			}
+			
+			return builder.toString();
+		}
+}
+
+

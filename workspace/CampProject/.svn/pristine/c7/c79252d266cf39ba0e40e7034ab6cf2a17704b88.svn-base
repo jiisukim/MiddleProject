@@ -1,0 +1,49 @@
+package campingCrew.handler;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import comm.handler.CommandHandler;
+
+public class CampingCrewJoin implements CommandHandler{
+	private static String VIEW_PAGE = "/WEB-INF/views/crew/crewJoinGender.jsp";
+	
+	private String key = "";
+	String gen = "";
+	String act = "";
+	String thm = "";
+	
+	@Override
+	public boolean isRedirect(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		if(req.getParameter("key") != null) {
+			key = req.getParameter("key");
+			
+			
+			if("gender".equalsIgnoreCase(key)) {
+				gen= new String(req.getParameter("gen").getBytes("ISO-8859-1"), "UTF-8");
+				VIEW_PAGE = "/WEB-INF/views/crew/crewJoinAct.jsp?gen="+gen;
+			}else if("act".equalsIgnoreCase(key)){
+				act= new String(req.getParameter("act").getBytes("ISO-8859-1"), "UTF-8");
+				VIEW_PAGE = "/WEB-INF/views/crew/crewJoinThm.jsp?gen="+gen+"&act="+act;
+			}else if("thm".equalsIgnoreCase(key)) {
+				thm= new String(req.getParameter("thm").getBytes("ISO-8859-1"), "UTF-8");
+				VIEW_PAGE = "/WEB-INF/views/crew/crewJoinGender.jsp?gen="+gen+"&act="+act+"&thm="+thm;
+				
+				
+			}else {
+				VIEW_PAGE = "/WEB-INF/views/crew/crewJoinGender.jsp";
+			}
+			
+			
+			
+		}
+		return VIEW_PAGE;
+	}
+
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+         
+<sqlMap namespace="campRev">
+
+	<resultMap class="vo.CampRevVO" id="campRevMap">
+      
+		<result property="revCode"	 column="REV_CODE"/>
+	    <result property="memCode"	 column="MEM_CODE"/>
+		<result property="bkCode"    column="BK_CODE"/>
+		<result property="revTitle"    column="REV_TITLE"/>
+		<result property="revCon"    column="REV_CON"/>
+		<result property="revDate"    column="REV_DATE"/>
+		<result property="revCmpvst"   column="REV_CMPVST"/>
+   
+	</resultMap>
+
+	<resultMap class="vo.ViewRevVo" id="viewRevMap">
+
+		<result property="vHostname"	  column="V_HOSTNAME" />
+		<result property="vTitle"	  column="V_TITLE" />
+		<result property="vCon"    column="V_CON" />
+		<result property="vVisit"    column="V_VISIT" />
+		<result property="vDate"    column="V_DATE" />
+		<result property="vNick"    column="V_NICK" />
+		<result property="revCode"    column="REV_CODE" />
+  
+	</resultMap>
+
+
+<!-- 
+전체조회		: #firstRecNo# and #lastRecNo#가 갑자기 왜 나오지??	 페이징처리라서 
+-->
+	<select id="getCampRevAll" parameterClass="String" resultMap="viewRevMap">
+		
+		select AA.*
+		from
+		(
+			select rownum rn, a.*
+			from
+			(select * from v_camp
+			order by v_date) a
+			where v_hostName = #vHostname#
+			order by rn desc
+		) AA
+		where AA.rnum between #firstRecNo# and #lastRecNo#
+	
+	</select>
+	
+<!-- 
+페이징처리	 : 잘 모르겠는데 그냥 따라씀
+-->
+	
+	<select id="getTotalCnt" parameterClass="String" resultClass="int">
+       select count(*) as cnt from v_camp
+       where v_hostName = #vHostname#
+    </select>
+
+<!-- 
+글하나 선택해서 세부적으로 읽기 ///이게 뷰로 가능할까??? 제목을 클릭해서 가는건가?? 글번호...?
+-->
+
+<!-- 	<select id="getCampRev" parameterClass="vo.ViewRevVo" resultMap="viewRevMap"> -->
+<!--        select * from TB_QNA v_camp -->
+<!--        where v_hostName = #vHostname# -->
+<!--        and v_ -->
+<!--     </select> -->
+	
+<!-- 	<select id="getMemNick" parameterClass="vo.QnaVO" resultClass="String">		 -->
+<!-- 		SELECT DISTINCT A.MEM_NICK -->
+<!-- 		FROM TB_MEM A, TB_QNA B -->
+<!-- 		WHERE A.MEM_CODE = #memCode# -->
+<!-- 			AND A.MEM_CODE = B.MEM_CODE	 -->
+<!-- 	</select>	 -->
+	
+	
+	
+	
+
+</sqlMap>         

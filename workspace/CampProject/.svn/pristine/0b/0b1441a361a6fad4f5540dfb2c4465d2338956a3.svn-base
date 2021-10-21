@@ -1,0 +1,65 @@
+package vo;
+
+public class CampBookVO {
+
+	private String BkCode;
+	private String MemCode;
+	private String CmpCode;
+	private String BkPayday;
+	private String BkDayin;
+	private String BkDayout;
+	private int BkMemnum;
+	private String BkPrice;
+	
+	public String getBkCode() {
+		return BkCode;
+	}
+	public void setBkCode(String bkCode) {
+		BkCode = bkCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getCmpCode() {
+		return CmpCode;
+	}
+	public void setCmpCode(String cmpCode) {
+		CmpCode = cmpCode;
+	}
+	public String getBkPayday() {
+		return BkPayday;
+	}
+	public void setBkPayday(String bkPayday) {
+		BkPayday = bkPayday;
+	}
+	public String getBkDayin() {
+		return BkDayin;
+	}
+	public void setBkDayin(String bkDayin) {
+		BkDayin = bkDayin;
+	}
+	public String getBkDayout() {
+		return BkDayout;
+	}
+	public void setBkDayout(String bkDayout) {
+		BkDayout = bkDayout;
+	}
+	public int getBkMemnum() {
+		return BkMemnum;
+	}
+	public void setBkMemnum(int bkMemnum) {
+		BkMemnum = bkMemnum;
+	}
+	public String getBkPrice() {
+		return BkPrice;
+	}
+	public void setBkPrice(String bkPrice) {
+		BkPrice = bkPrice;
+	}
+
+		
+	
+}

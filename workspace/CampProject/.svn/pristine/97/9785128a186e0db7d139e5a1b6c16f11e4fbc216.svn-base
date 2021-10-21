@@ -1,0 +1,21 @@
+package vo;
+
+public class CrewActVO {
+
+	private String CrewCode;
+	private String ActCode;
+	
+	public String getCrewCode() {
+		return CrewCode;
+	}
+	public void setCrewCode(String crewCode) {
+		CrewCode = crewCode;
+	}
+	public String getActCode() {
+		return ActCode;
+	}
+	public void setActCode(String actCode) {
+		ActCode = actCode;
+	}
+		
+}

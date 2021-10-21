@@ -1,0 +1,30 @@
+package vo;
+
+public class CampCartVO {
+	
+	private String CcartCode;
+	private String CmpCode;
+	private String MemCode;
+	
+	public String getCcartCode() {
+		return CcartCode;
+	}
+	public void setCcartCode(String ccartCode) {
+		CcartCode = ccartCode;
+	}
+	public String getCmpCode() {
+		return CmpCode;
+	}
+	public void setCmpCode(String cmpCode) {
+		CmpCode = cmpCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	
+	
+	
+}

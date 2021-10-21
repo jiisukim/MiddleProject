@@ -1,0 +1,117 @@
+package campingCrud.handler;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import campingCrud.service.CampingServiceImpl;
+import campingCrud.service.ICampingService;
+import filter.FileUploadRequestWrapper;
+import comm.handler.CommandHandler;
+import join.HostJoinHandler;
+import join.UserJoinHandler;
+import comm.service.AtchfileServiceImpl;
+import comm.service.IatchFileService;
+import vo.AtFileVO;
+import vo.CampHostVO;
+
+public class UpdateCampingHandler implements comm.handler.CommandHandler {
+	private static final String VIEW_PAGE = ""; // /WEB-INF/views/member/updateForm.jsp
+
+	private static final Logger LOGGER = Logger.getLogger(HostJoinHandler.class);
+
+	private ICampingService campingService = CampingServiceImpl.getInstance();
+
+	private IatchFileService fileService = AtchfileServiceImpl.getInstance();
+
+	@Override
+	public boolean isRedirect(HttpServletRequest req) {
+		if (req.getMethod().equalsIgnoreCase("GET")) {
+			return false; // forward
+		} else if (req.getMethod().equalsIgnoreCase("POST")) {
+			return true; // redirect
+		}
+		return false;
+	}
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		if (req.getMethod().equalsIgnoreCase("GET")) {
+
+			String cmpId = req.getParameter("cmpId");
+
+			// 1. 회원정보 조회
+			List<CampHostVO> campHostVO = campingService.getAllCampingList(cmpId);
+
+			// 2. 첨부파일 정보 조회 (추가내용)
+			if (campHostVO.getFileId() > 0) { // 첨부파일이 존재하면...
+				// 2-1. 첨부파일 정보 조회
+				AtFileVO fileVO = new AtFileVO();
+				fileVO.setAtchFileId(campHostVO.getAtchFileId());
+
+				List<AtFileVO> atchFileList = fileService.getAtchFileList(fileVO);
+
+				req.setAttribute("atchFileList", atchFileList);
+			}
+
+			// 3. request객체에 회원정보 저장
+			req.setAttribute("campHostVO", campHostVO);
+
+			return VIEW_PAGE;
+
+		} else if (req.getMethod().equalsIgnoreCase("POST")) {
+
+			// 기존의 첨부파일 아이디 정보 가져오기
+			long atchFileId = req.getParameter("atchFileId") == null ? -1
+					: Long.parseLong(req.getParameter("atchFileId"));
+
+			AtFileVO atchFileVO = new AtFileVO();
+			atchFileVO.setFileId(atchFileId);
+
+			// 멀티파트 처리된 래퍼객체가 맞는지 확인..
+			if (FileUploadRequestWrapper.hasWrapper(req)) {
+
+				Map<String, Object> fileItemMap = ((FileUploadRequestWrapper) req).getFileItemMap();
+
+				LOGGER.info("파일 아이템 사이즈 : " + fileItemMap.size());
+
+				if (fileItemMap.size() > 0) { // 파일이 존재하면...
+					atchFileVO = fileService.saveAtchFileList(fileItemMap);
+				}
+			}
+
+			// 1. 요청파라미터 정보 가져오기
+			String memId = req.getParameter("memId");
+			String memName = req.getParameter("memName");
+			String memTel = req.getParameter("memTel");
+			String memAddr = req.getParameter("memAddr");
+
+			CampHostVO mv = new MemberVO();
+			mv.setMemId(memId);
+			mv.setMemName(memName);
+			mv.setMemTel(memTel);
+			mv.setMemAddr(memAddr);
+			mv.setAtchFileId(atchFileVO.getAtchFileId());
+
+			// 3. 회원정보 수정하기
+			int cnt = memService.updateMember(mv);
+
+			String msg = "";
+			if (cnt > 0) {
+				msg = "성공";
+			} else {
+				msg = "실패";
+			}
+
+			String redirecURL = req.getContextPath() + "/member/list.do?msg=" + URLEncoder.encode(msg, "utf-8");
+
+			return redirecURL;
+		}
+
+		return null;
+	}
+}

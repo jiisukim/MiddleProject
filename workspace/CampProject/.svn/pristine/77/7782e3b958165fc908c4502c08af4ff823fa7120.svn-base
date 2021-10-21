@@ -1,0 +1,95 @@
+package faq;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import comm.handler.CommandHandler;
+import faq.service.FaqServiceImpl;
+import faq.service.IFaqService;
+import vo.ConstVO;
+import vo.FaqVO;
+import vo.PagingVO;
+
+public class FaqListHandler implements CommandHandler{
+
+	private static final Logger LOGGER = Logger.getLogger(FaqListHandler.class);
+	private IFaqService faqService = FaqServiceImpl.getInstance();
+	
+	@Override
+	public boolean isRedirect(HttpServletRequest req) {		
+		return false;
+	}
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String url = "";		
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {			
+			
+			// 요청 페이지 번호 가져오기
+			int pageNo = req.getParameter("pageNo") == null ? 1 : Integer.parseInt(req.getParameter("pageNo"));
+			
+			PagingVO pagevo = new PagingVO();
+			
+			int totalCnt = faqService.getTotalCnt();
+			pagevo.setTotalCount(totalCnt);
+			pagevo.setCurrentPageNo(pageNo);
+			pagevo.setCountPerPage(10); //페이지당 게시되는 게시물 건수
+			pagevo.setPageSize(5); //페이지목록 게시되는 페이지 수 
+			
+			List<FaqVO> list = faqService.getFaqWithPaging(pagevo);
+			
+			
+			if(list != null && list.size() != 0) {
+				
+				List<FaqVO> faqlist = new ArrayList<FaqVO>();
+				
+				for( FaqVO faq : list) { // AdmCode에 admNick바꿔넣음
+					String admCode = faq.getAdmCode();
+					String admNick = faqService.getAdminNick(admCode);
+					faq.setAdmCode(admNick);
+					faqlist.add(faq);			
+				}			
+				req.setAttribute("faqlist", faqlist);
+			}else {
+				req.setAttribute("faqlist", list);
+			}
+			
+			
+			req.setAttribute("pagevo", pagevo);			
+			
+			url = ConstVO.VIEW_FAQ_LIST;
+			
+		}else if(req.getMethod().equalsIgnoreCase("POST")) {
+			String flag = req.getParameter("flag");
+			
+			if("title".equalsIgnoreCase(flag)) {
+				searchTitle(req);
+				
+			}else if("contents".equalsIgnoreCase(flag)) {
+				
+			}else if("nickname".equalsIgnoreCase(flag)) {
+				
+			}
+		}
+		
+		return url;
+	}
+
+	private void searchTitle(HttpServletRequest req) {
+		String faqTitle = req.getParameter("search");
+		FaqVO faq = new FaqVO();
+		List<FaqVO> faqlist = new ArrayList<FaqVO>();
+		
+		faq.setFaqTitle(faqTitle);		
+		
+		faqlist = faqService.getFaqDetail(faq);
+		
+	}
+
+}

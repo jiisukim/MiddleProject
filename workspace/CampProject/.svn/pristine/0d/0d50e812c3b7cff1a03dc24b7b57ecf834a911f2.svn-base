@@ -1,0 +1,23 @@
+package vo;
+
+public class UsedLocVO {
+	
+	private String UsedCode;
+	private String LocCode;
+	
+	public String getUsedCode() {
+		return UsedCode;
+	}
+	public void setUsedCode(String usedCode) {
+		UsedCode = usedCode;
+	}
+	public String getLocCode() {
+		return LocCode;
+	}
+	public void setLocCode(String locCode) {
+		LocCode = locCode;
+	}
+	
+		
+	
+}

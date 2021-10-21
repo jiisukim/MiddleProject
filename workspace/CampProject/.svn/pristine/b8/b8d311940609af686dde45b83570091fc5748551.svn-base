@@ -1,0 +1,43 @@
+package pay;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import comm.handler.CommandHandler;
+import vo.ConstVO;
+
+public class PayHandler implements CommandHandler{
+
+	private static final Logger LOGGER = Logger.getLogger(PayHandler.class);
+	
+	@Override
+	public boolean isRedirect(HttpServletRequest req) {
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			return false;
+		}else if(req.getMethod().equalsIgnoreCase("POST")) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String url = "";
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			
+		}else if(req.getMethod().equalsIgnoreCase("POST")) {
+			
+			
+			
+			
+			
+		}
+		
+		return url;
+		
+	}
+
+}

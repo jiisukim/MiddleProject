@@ -1,0 +1,58 @@
+package vo;
+
+public class RecCrewVO {
+
+	private String CrewCode;
+	private String MemCode;
+	private String RecrGender;
+	private String RecrStart;
+	private String RecrEnd;
+	private int RecrNeednum;
+	private int RecrCurrnum;
+	
+	public String getCrewCode() {
+		return CrewCode;
+	}
+	public void setCrewCode(String crewCode) {
+		CrewCode = crewCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getRecrGender() {
+		return RecrGender;
+	}
+	public void setRecrGender(String recrGender) {
+		RecrGender = recrGender;
+	}
+	public String getRecrStart() {
+		return RecrStart;
+	}
+	public void setRecrStart(String recrStart) {
+		RecrStart = recrStart;
+	}
+	public String getRecrEnd() {
+		return RecrEnd;
+	}
+	public void setRecrEnd(String recrEnd) {
+		RecrEnd = recrEnd;
+	}
+	public int getRecrNeednum() {
+		return RecrNeednum;
+	}
+	public void setRecrNeednum(int recrNeednum) {
+		RecrNeednum = recrNeednum;
+	}
+	public int getRecrCurrnum() {
+		return RecrCurrnum;
+	}
+	public void setRecrCurrnum(int recrCurrnum) {
+		RecrCurrnum = recrCurrnum;
+	}
+	
+	
+	
+}

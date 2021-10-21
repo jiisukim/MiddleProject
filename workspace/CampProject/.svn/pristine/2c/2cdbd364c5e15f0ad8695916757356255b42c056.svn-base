@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="hostjoin">
+<!-- 
+	<insert id="">
+		
+	</insert>
+	
+	<update id=""></update>
+	
+	<select id=""></select> -->	
+	<select id="searchCampListByCmpId" parameterClass="String"
+	resultClass="vo.CampHostVO">
+		SELECT 
+		CMP_CODE             cmpCode   
+		,CMP_ID              cmpId     
+		,CMP_PW              cmpPw     
+		,CMP_NICK            cmpNick   
+		,CMP_HOSTNAME        cmpHostname
+		,CMP_TEL             cmpTel    
+		,CMP_DESC            cmpDesc   
+		,CMP_CONV            cmpConv   
+		,CMP_FEE             cmpFee    
+		,CMP_SITENUM         cmpSitenum
+		,CMP_LATI            cmpLati   
+		,CMP_LONG            cmpLong   
+		,CMP_LOADADDR        cmpLoadaddr
+		,CMP_ADDR            cmpAddr   
+		,CMP_APPYN           cmpAppyn		
+		FROM TB_CAMPHOST
+		WHERE CMP_ID = #cmpId#		
+	</select>	
+	
+	<select id="searchCampListByCmpNick" parameterClass="String"
+	resultClass="vo.CampHostVO">
+		SELECT 
+		CMP_CODE             cmpCode   
+		,CMP_ID              cmpId     
+		,CMP_PW              cmpPw     
+		,CMP_NICK            cmpNick   
+		,CMP_HOSTNAME        cmpHostname
+		,CMP_TEL             cmpTel    
+		,CMP_DESC            cmpDesc   
+		,CMP_CONV            cmpConv   
+		,CMP_FEE             cmpFee    
+		,CMP_SITENUM         cmpSitenum
+		,CMP_LATI            cmpLati   
+		,CMP_LONG            cmpLong   
+		,CMP_LOADADDR        cmpLoadaddr
+		,CMP_ADDR            cmpAddr   
+		,CMP_APPYN           cmpAppyn	
+		FROM TB_CAMPHOST
+		WHERE CMP_NICK = #cmpNick#		
+	</select>
+	
+	<insert id="insertCamphost" parameterClass="vo.CampHostVO">
+		INSERT INTO TB_CAMPHOST
+		(CMP_CODE, CMP_ID, CMP_PW, CMP_NICK, CMP_HOSTNAME, CMP_TEL, CMP_DESC, CMP_CONV, CMP_FEE, CMP_SITENUM
+		, CMP_LATI, CMP_LONG, CMP_LOADADDR, CMP_ADDR, CMP_APPYN)
+		VALUES(CAMPHOST_SEQ.NEXTVAL, #cmpId#,#cmpPw#, #cmpNick#, #cmpHostname#, #cmpTel#, #cmpDesc#, #cmpConv#
+		, #cmpFee#, #cmpSitenum#, #cmpLati#, #cmpLong#, #cmpLoadaddr#, #cmpAddr#, 'N')	
+	</insert>
+	
+	
+		
+</sqlMap>

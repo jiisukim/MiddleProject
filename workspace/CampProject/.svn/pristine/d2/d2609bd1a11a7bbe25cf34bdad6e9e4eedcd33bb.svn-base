@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="member">
+ 	
+ 	<resultMap class="vo.NoticeVO" id="campManageMap">		
+		<result property="cmpCode" column="CMP_CODE"/>
+		<result property="cmpId" column="CMP_ID"/>
+		<result property="cmpPw" column="CMP_PW"/>
+		<result property="cmpNick" column="CMP_NICK"/>
+		<result property="cmpHostname" column="CMP_HOSTNAME"/>
+		<result property="cmpTel" column="CMP_TEL"/>
+		<result property="cmpDesc" column="CMP_DESC"/>
+		<result property="cmpConv" column="CMP_CONV"/>
+		<result property="cmpFee" column="CMP_FEE"/>
+		<result property="cmpSitenum" column="CMP_SITENUM"/>
+		<result property="cmpLati" column="CMP_LATI"/>
+		<result property="cmpLong" column="CMP_LONG"/>
+		<result property="cmpLoadaddr" column="CMP_LOADADDR"/>
+		<result property="cmpAddr" column="CMP_ADDR"/>
+		<result property="cmpAppyn" column="CMP_APPYN"/>
+	</resultMap>
+ 	
+ 	<insert id="insertCamping" parameterClass="String">
+ 		
+ 		insert into TB_CAMPHOST
+		(CMP_CODE, CMP_ID, CMP_PW, CMP_NICK, CMP_HOSTNAME, CMP_TEL, CMP_DESC, CMP_CONV, CMP_FEE, CMP_SITENUM, CMP_LATI, CMP_LONG, CMP_LOADADDR, CMP_ADDR, CMP_APPYN)
+		values ((SELECT NVL(MAX(NTC_CODE), 0) + 1 FROM TB_NOTICE), #cmpId#, #cmpPw#, #cmpNick#, #cmpHostname#, #cmpTel#, #cmpDesc#, #cmpConv#, #cmpFee#, #cmpSitenum#, #cmpLati#, #cmpLong#, #cmpLoadaddr#, #cmpAddr#, 'Y')
+ 		
+ 	</insert>
+ 	
+	
+ 	
+ 	<delete id="deleteCamping" parameterClass="String">
+ 	
+ 		delete from TB_CAMPHOST where CMP_CODE = #cmpCode#
+ 	
+ 	</delete>
+
+
+	<select id="getCampingAll" resultMap="campManageMap">
+
+		select AA.*
+		from
+		(select A.*, rownum as rnum
+		from
+		(select CMP_ID
+		,CMP_HOSTNAME
+		,CMP_DESC
+		,CMP_CONV
+		,CMP_FEE
+		,CMP_SITENUM
+		,CMP_ADDR
+		from TB_CAMPHOST 
+		where CMP_APPYN = 'N') A ) AA
+		where AA.rnum between #firstRecNo# and #lastRecNo#
+
+	</select>
+ 	
+ 	<select id="getTotalCnt" resultClass="int">
+ 		
+ 		select count(*) as cnt
+		from TB_CAMPHOST
+ 	
+ 	</select>
+ 	
+
+ 	<select id="getCamping" resultMap="campManageMap">
+ 	
+ 		select *  from TB_CAMPHOST where CMP_APPYN = 'N'
+ 		
+ 	</select>
+ 	
+ 	<update id="updateCamping" >
+ 	
+ 		update TB_CAMPHOST
+		set CMP_APPYN = 'Y'
+		where CMP_APPYN = 'N'
+ 	
+ 	</update>
+
+ 	
+ 	
+</sqlMap>			
+
+
+
+
+

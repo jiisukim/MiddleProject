@@ -1,0 +1,5 @@
+package qna.handler;
+
+public class ListQnaHandler { // 페이징을 써서 목록으로 보여주는 핸들러
+
+}

@@ -1,0 +1,52 @@
+package vo;
+
+public class BstVO {
+	
+	private String BstCode;
+	private String MemCode;
+	private String BstCon;
+	private int BstLikenum;
+	private int BstRplnum;
+	private String BstDate;	
+	
+	public String getBstCode() {
+		return BstCode;
+	}
+	public void setBstCode(String bstCode) {
+		BstCode = bstCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getBstCon() {
+		return BstCon;
+	}
+	public void setBstCon(String bstCon) {
+		BstCon = bstCon;
+	}
+	public int getBstLikenum() {
+		return BstLikenum;
+	}
+	public void setBstLikenum(int bstLikenum) {
+		BstLikenum = bstLikenum;
+	}
+	public int getBstRplnum() {
+		return BstRplnum;
+	}
+	public void setBstRplnum(int bstRplnum) {
+		BstRplnum = bstRplnum;
+	}
+	public String getBstDate() {
+		return BstDate;
+	}
+	public void setBstDate(String bstDate) {
+		BstDate = bstDate;
+	}
+
+	
+	
+	
+}

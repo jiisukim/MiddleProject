@@ -1,0 +1,154 @@
+<%@page import="vo.PagingVO"%>
+<%@page import="vo.NoticeVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%
+	List<NoticeVO> noticeList = (List<NoticeVO>)request.getAttribute("noticeList");
+// 	String msg = request.getParameter("msg") == "" ? "실패" : "성공";
+// 	System.out.println(msg);
+	PagingVO pagingVO = (PagingVO)request.getAttribute("pagingVO");
+	
+
+%>
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+
+</script>
+<style type="text/css">
+ 	.container{
+        width: 1000px;
+    }
+	a{
+		text-decoration-line: none !important;		
+	}
+	td:first-child, td:nth-child(3){
+		text-align: center;
+	}
+	i{
+		margin-right: 4px;
+	}
+	.pagination{
+		margin : 10px 0px;
+	}
+</style>
+<title>이짝워뗘 | 공지사항</title>
+</head>
+
+<body>
+	<div class="container">
+	  <h2><i class="fas fa-exclamation-circle"></i>공지사항</h2>
+	  <br><br>
+	  <div>		
+		  
+	  	<!-- <form style="float: right;" method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/host/noticeSearch.do">
+			<select class="form-control" id="search" name="search">
+				<option value="title" selected>게시물 제목</option>
+				<option value="contents">게시물 내용</option>
+				<option value="nickname">작성자</option>
+			</select>
+		  <input type="text" name="ntcTitle">
+		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" value="제목검색">검색</button>
+		</form> -->
+
+		<nav class="navbar">
+            <div class="container-fluid">
+                <form class="navbar-form navbar-right" action="<%=request.getContextPath() %>/host/noticeSearch.do">
+                    <select class="form-control col-sm-2" id="search" name="search">
+                        <option value="title" selected>게시물 제목</option>
+                        <option value="contents">게시물 내용</option>
+                        <option value="nickname">작성자</option>
+                    </select>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="검색하기" name="searchInput" id="searchNotice">                     
+                    </div>
+                    <button class="btn btn-default" type="button" onclick="searchNotice()">
+                        <i class="fas fa-search"></i>검색
+                    </button>
+                </form>
+            </div>
+        </nav>
+	  <table class="table table-hover">
+		<colgroup>
+			<col style="width: 50px;">
+			<col style="width: auto;">
+			<col style="width: 100px;">			          
+		</colgroup>
+		<thead>
+	 	 	<tr class="info">
+				<td>번호</td>
+				<td>제목</td>
+				<td>날짜</td>
+		    </tr>
+		</thead>
+		<tbody>
+	  <%
+	  int notSize = noticeList.size();
+	  	if(notSize > 0){		// 사이즈가 0보다 클때 : 공지사항 게시물이 있을 때
+	  		for(int i =0; i<notSize; i++){
+	  			String date = noticeList.get(i).getNtcDate();
+	  			date = date.substring(0,10);
+	  %>
+		  <tr>
+		  	  <td><%=noticeList.get(i).getNtcCode() %></td>
+		      <td><a href="select.do?ntcCode=<%=noticeList.get(i).getNtcCode() %>"><%= noticeList.get(i).getNtcTitle() %></a></td>
+		      <td><%= date %></td>
+		  </tr>  
+	  <%	
+	  		} //for문
+	  %>
+	  <!--  페이징 처리 시작  -->		
+	  <tr>
+	  	<td colspan="3" align="center">
+		  	<ul class="pagination pagination-lg">
+		  		<%if(pagingVO.getFirstPageNo() > pagingVO.getPageSize()) {%>
+		  			<li><a href="hostNotice.do?pageNo=<%=pagingVO.getFirstPageNo() - pagingVO.getPageSize() %>">이전</a></li>
+		  		<%} %>
+		  		<%for(int pNo = pagingVO.getFirstPageNo(); pNo <= pagingVO.getLastPageNo(); pNo++){%>
+		  			<li><a <%if(pNo == pagingVO.getCurrentPageNo()){ %> <%} %> href="hostNotice.do?pageNo=<%=pNo %>"><%=pNo %></a></li>
+		  		<%} %>
+		  		<%if(pagingVO.getLastPageNo() < pagingVO.getTotalPageCount()) { %>
+					<li><a  href="hostNotice.do?pageNo=<%=pagingVO.getFirstPageNo() + pagingVO.getPageSize() %>">다음</a></li>
+				<%} %>
+			</ul>
+			<!-- <a href="noticeInsert.do" style="float: right;"><button>공지등록</button></a> -->			
+	  	</td>
+	  </tr>	  
+	  <!--  페이징 처리 끝 -->
+	  
+	  
+	  <%
+	  	}else{				// 사이즈가 0일때 : 공지사항 게시물이 없을 때
+	  %>
+	  	<tr>
+			<td colspan="2">공지사항이 없습니다.</td>
+		</tr>		
+	  <%
+		}
+	  %>	  
+		</tbody>
+	  	</table>
+		<tr>
+			<div class="btns" style="float: right;">
+				<a href="#"><button class="btn btn-default"><i class="far fa-edit"></i>공지등록</button></a>
+			</div>
+		</tr>  
+
+	</div>	  
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+package vo;
+
+public class UsedDelivVO {
+
+	private String UsedCode;
+	private String DeliYn;
+	
+	public String getUsedCode() {
+		return UsedCode;
+	}
+	public void setUsedCode(String usedCode) {
+		UsedCode = usedCode;
+	}
+	public String getDeliYn() {
+		return DeliYn;
+	}
+	public void setDeliYn(String deliYn) {
+		DeliYn = deliYn;
+	}
+	
+	
+}

@@ -1,0 +1,43 @@
+package vo;
+
+public class UsedCommVO {
+
+	private String UsdcCode;
+	private String MemCode;
+	private String UsedCode;
+	private String UsdcCon;
+	private String UsdcDate;
+	
+	public String getUsdcCode() {
+		return UsdcCode;
+	}
+	public void setUsdcCode(String usdcCode) {
+		UsdcCode = usdcCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getUsedCode() {
+		return UsedCode;
+	}
+	public void setUsedCode(String usedCode) {
+		UsedCode = usedCode;
+	}
+	public String getUsdcCon() {
+		return UsdcCon;
+	}
+	public void setUsdcCon(String usdcCon) {
+		UsdcCon = usdcCon;
+	}
+	public String getUsdcDate() {
+		return UsdcDate;
+	}
+	public void setUsdcDate(String usdcDate) {
+		UsdcDate = usdcDate;
+	}
+			
+	
+}

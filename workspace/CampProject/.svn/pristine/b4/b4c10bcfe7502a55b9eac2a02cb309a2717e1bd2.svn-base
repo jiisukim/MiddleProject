@@ -1,0 +1,22 @@
+package vo;
+
+public class SortVO {
+	
+	private String SrtCode   ;
+	private String SrtName   ;
+	
+	public String getSrtCode() {
+		return SrtCode;
+	}
+	public void setSrtCode(String srtCode) {
+		SrtCode = srtCode;
+	}
+	public String getSrtName() {
+		return SrtName;
+	}
+	public void setSrtName(String srtName) {
+		SrtName = srtName;
+	}
+			
+}
+

@@ -1,0 +1,57 @@
+package vo;
+
+public class CampRevVO {
+
+	private String RevCode;
+	private String MemCode;
+	private String BkCode;
+	private String RevTitle;
+	private String RevCon;
+	private String RevDate;
+	private String RevCmpvst;
+	
+	public String getRevCode() {
+		return RevCode;
+	}
+	public void setRevCode(String revCode) {
+		RevCode = revCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getBkCode() {
+		return BkCode;
+	}
+	public void setBkCode(String bkCode) {
+		BkCode = bkCode;
+	}
+	public String getRevTitle() {
+		return RevTitle;
+	}
+	public void setRevTitle(String revTitle) {
+		RevTitle = revTitle;
+	}
+	public String getRevCon() {
+		return RevCon;
+	}
+	public void setRevCon(String revCon) {
+		RevCon = revCon;
+	}
+	public String getRevDate() {
+		return RevDate;
+	}
+	public void setRevDate(String revDate) {
+		RevDate = revDate;
+	}
+	public String getRevCmpvst() {
+		return RevCmpvst;
+	}
+	public void setRevCmpvst(String revCmpvst) {
+		RevCmpvst = revCmpvst;
+	}
+
+		
+}

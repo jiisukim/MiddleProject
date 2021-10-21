@@ -1,0 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	img{
+		border-radius: 15px;
+		width: 250px;
+	}
+	img:hover{
+		border: 2px solid lightgray;
+	}
+</style>
+</head>
+<%
+String gen = request.getParameter("gen");
+String act = request.getParameter("act");
+%>
+<body>
+	<div style="width: 70%">
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>해안</h2>
+			<a href="crewJoin.do?key=thm&thm=해안&gen=<%=gen %>&act=<%=act %>"><img alt="해안" src="/images/campingImg1.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>자연</h2>
+			<a href="crewJoin.do?key=thm&thm=자연&gen=<%=gen %>&act=<%=act %>"><img alt="자연" src="/images/water.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>도시</h2>
+			<a href="crewJoin.do?key=thm&thm=도시&gen=<%=gen %>&act=<%=act %>"><img alt="도시" src="/images/water.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>반려동물</h2>
+			<a href="crewJoin.do?key=thm&thm=반려동물&gen=<%=gen %>&act=<%=act %>"><img alt="반려동물" src="/images/water.jpg" height="600px"></a>
+		</div>
+		<div style="text-align: center; width: calc(20%); float: left; overflow: hidden;">
+			<h2>무관</h2>
+			<a href="crewJoin.do?key=thm&thm=무관&gen=<%=gen %>&act=<%=act %>"><img alt="무관" src="/images/tree.jpg" height="600px"></a>
+		</div>
+	</div>
+</body>
+</html>

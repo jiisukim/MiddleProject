@@ -1,0 +1,21 @@
+package vo;
+
+public class ThmVO {
+
+	private String TmCode;
+	private String TmName;
+	
+	public String getTmCode() {
+		return TmCode;
+	}
+	public void setTmCode(String tmCode) {
+		TmCode = tmCode;
+	}
+	public String getTmName() {
+		return TmName;
+	}
+	public void setTmName(String tmName) {
+		TmName = tmName;
+	}
+
+}

@@ -1,0 +1,50 @@
+package vo;
+
+public class UsedVO {
+	
+	private String UsedCode;
+	private String MemCode;
+	private String UsedTitle;
+	private String UsedCon;
+	private String UsedPri;
+	private String UsedUpload;
+	
+	public String getUsedCode() {
+		return UsedCode;
+	}
+	public void setUsedCode(String usedCode) {
+		UsedCode = usedCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getUsedTitle() {
+		return UsedTitle;
+	}
+	public void setUsedTitle(String usedTitle) {
+		UsedTitle = usedTitle;
+	}
+	public String getUsedCon() {
+		return UsedCon;
+	}
+	public void setUsedCon(String usedCon) {
+		UsedCon = usedCon;
+	}
+	public String getUsedPri() {
+		return UsedPri;
+	}
+	public void setUsedPri(String usedPri) {
+		UsedPri = usedPri;
+	}
+	public String getUsedUpload() {
+		return UsedUpload;
+	}
+	public void setUsedUpload(String usedUpload) {
+		UsedUpload = usedUpload;
+	}
+		
+	
+}

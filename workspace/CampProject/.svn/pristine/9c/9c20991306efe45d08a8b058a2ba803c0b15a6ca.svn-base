@@ -1,0 +1,22 @@
+package vo;
+
+public class CrewVO {
+
+	private String CrewCode;
+	private String MemCode;
+	
+	public String getCrewCode() {
+		return CrewCode;
+	}
+	public void setCrewCode(String crewCode) {
+		CrewCode = crewCode;
+	}
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+
+	
+}

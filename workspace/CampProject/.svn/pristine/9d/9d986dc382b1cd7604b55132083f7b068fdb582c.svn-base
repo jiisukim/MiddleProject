@@ -1,0 +1,21 @@
+package vo;
+
+public class CurrSellVO {
+
+	private String SelCode;
+	private String SelStat;
+	
+	public String getSelCode() {
+		return SelCode;
+	}
+	public void setSelCode(String selCode) {
+		SelCode = selCode;
+	}
+	public String getSelStat() {
+		return SelStat;
+	}
+	public void setSelStat(String selStat) {
+		SelStat = selStat;
+	}	
+	
+}

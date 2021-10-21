@@ -1,0 +1,21 @@
+package vo;
+
+public class UsedDibVO {
+	
+	private String MemCode;
+	private String UsedCode;
+	public String getMemCode() {
+		return MemCode;
+	}
+	public void setMemCode(String memCode) {
+		MemCode = memCode;
+	}
+	public String getUsedCode() {
+		return UsedCode;
+	}
+	public void setUsedCode(String usedCode) {
+		UsedCode = usedCode;
+	}
+	
+	
+}

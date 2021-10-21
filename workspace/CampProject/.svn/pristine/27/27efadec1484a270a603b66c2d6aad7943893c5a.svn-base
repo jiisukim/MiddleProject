@@ -1,0 +1,69 @@
+package campRev.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import vo.CampRevVO;
+import vo.PagingVO;
+
+public class CampRevDao implements ICampRevDao {
+private static ICampRevDao campRevDao;
+	
+	private CampRevDao() {}
+	
+	public static ICampRevDao getInstance() {
+		if(campRevDao == null) {
+			campRevDao = new CampRevDao();
+		}
+		return campRevDao;
+	}
+
+	@Override
+	public int insertCampRev(SqlMapClient smc, CampRevVO cv) throws SQLException {
+		int cnt = 0;
+		
+		Object obj = smc.insert("campRev.insertCampRev", cv);
+		if(obj == null) {
+			cnt = 1;
+		}
+		return cnt;
+	}
+
+	@Override
+	public List<CampRevVO> getCampRevAll(SqlMapClient smc, PagingVO pagingVO) throws SQLException {
+		List<CampRevVO> noticeList = smc.queryForList("campRev.getCampRevAll",pagingVO);
+		return noticeList;
+	}
+
+	@Override
+	public int updateCampRev(SqlMapClient smc, CampRevVO cv) throws SQLException {
+		int cnt = smc.update("campRev.updateCampRev", cv);
+		return cnt;
+	}
+
+	@Override
+	public int deleteCampRev(SqlMapClient smc, String RevCode) throws SQLException {
+		int cnt = smc.delete("campRev.deleteCampRev", RevCode);
+		return cnt;
+	}
+
+	@Override
+	public int getTotalCnt(SqlMapClient smc) throws SQLException {
+		int cnt = (Integer)smc.queryForObject("campRev.getTotalCnt");
+		return cnt;
+	}
+
+	@Override
+	public CampRevVO getCampRev(SqlMapClient smc, String RevCode) throws SQLException {
+		CampRevVO cv = (CampRevVO)smc.queryForObject("campRev.getNotice", RevCode);
+		return cv;
+	}
+
+
+	
+	
+	
+	
+}

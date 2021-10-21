@@ -1,0 +1,22 @@
+package vo;
+
+public class CrewThmVO {
+
+	private String CrewCode;
+	private String TmCode;
+	
+	public String getCrewCode() {
+		return CrewCode;
+	}
+	public void setCrewCode(String crewCode) {
+		CrewCode = crewCode;
+	}
+	public String getTmCode() {
+		return TmCode;
+	}
+	public void setTmCode(String tmCode) {
+		TmCode = tmCode;
+	}
+	
+}
+

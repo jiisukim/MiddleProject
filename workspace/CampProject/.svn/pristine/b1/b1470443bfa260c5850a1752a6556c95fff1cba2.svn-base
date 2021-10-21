@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>로그인 페이지</title>
+	<script src="../../js/lib/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<hr>
+	<br>
+    <form name="login_form" method="post" action="./login_check.php" >
+        	아이디 : <input type="text" name="user_id" id="userID"><br><br>
+        	비밀번호 : <input type="password" name="user_pass" id="userPW"><br><br>
+        	<button type="button" value="login" onclick="check()">로그인</button><br><br><br>
+        	아직 회원이 아니라면...? => 
+        	<button type="button" value="login" onclick="join()">회원가입</button><br><br>
+        	아이디를 잊어버렸다면...? =>
+        	<button type="button" value="login" onclick="findId()">아이디 찾기</button><br><br>
+        	비밀번호를 잊어버렸다면...? => 
+        	<button type="button" value="login" onclick="findPW()">비밀번호 찾기</button>
+    </form>
+    <br>
+    <hr>   
+</body>
+	<script type="text/javascript">
+		function check() {
+			const form = document.login_form;
+			const chkUserId = checkValidUserId(form);
+			if(chkUserId == false){
+				return;
+			}
+			const chkUserPW = checkValidUserPW(form);
+			
+			var param = {
+				userId : form.user_id.value
+				, userPW: form.user_pass.value
+				, flag : "LOGIN"
+			};
+			
+			console.log("param.userId : " + param.userId);
+			console.log("param.userPW : " + param.userPW);
+			
+			$.ajax({
+				url: "/JqueryPj_DTR/MemberServlet"
+// 				url: "/JqueryPj_DTR/MemberServlet"
+				,type: "post"
+				,data: param
+				,dataType: "json"
+				,success: function(data) {
+					console.log(data);
+					// {"resultCnt" : 0}
+					// data ==> {resultCnt : 0}
+					if(data.resultCnt == 0 ) {
+						$("#IdResult").text("사용 가능한 ID입니다.");
+						$("#IdResult").addClass("text-success");
+					
+					 }else {
+						alert("이미 사용중인 아이디 입니다.");
+						$("#userId").focus();
+						$("#IdResult").text("이미 사용중인 ID입니다.");
+						$("#IdResult").addClass("text-warning");
+						
+					}
+				}	
+				,error: function(xhr) {
+					console.log(xhr);
+					alert("오류입니다. 관리자에게 문의하세요");
+				}	
+			});
+		}
+		function checkValidUserId(form) {
+		    if (form.user_id.value == "") {
+		    	alert("아이디를 입력하세요.")
+		        form.user_id.focus();
+		        return false;
+		    }
+		    return true;
+		}
+		function checkValidUserPW(form) {
+		    if (form.user_pass.value == "") {
+		    	alert("비밀번호를 입력하세요.")
+		        form.user_pass.focus();
+		        return false;
+		    }
+		    return true;
+		}
+		function join() {
+			
+		}
+		function findId() {
+			
+		}
+		function findPW() {
+			
+		}
+	</script>
+</html>

@@ -1,0 +1,21 @@
+package vo;
+
+public class UsedSortVO {
+
+	private String USED_CODE;
+	private String SRT_CODE;
+	
+	public String getUSED_CODE() {
+		return USED_CODE;
+	}
+	public void setUSED_CODE(String uSED_CODE) {
+		USED_CODE = uSED_CODE;
+	}
+	public String getSRT_CODE() {
+		return SRT_CODE;
+	}
+	public void setSRT_CODE(String sRT_CODE) {
+		SRT_CODE = sRT_CODE;
+	}
+	
+}

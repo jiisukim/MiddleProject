@@ -1,0 +1,77 @@
+<%@page import="vo.AtFileVO"%>
+<%@page import="vo.EventVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	EventVO eventVO = (EventVO)request.getAttribute("eventVO");
+
+	 List<AtFileVO> fileList = (List<AtFileVO>)request.getAttribute("fileList");
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>게시글 정보</title>
+<style type="text/css">
+	td,th {
+		width: 400px;
+	}
+	table {
+		border: 1px black solid;
+		text-align: center;
+		font-size: x-large;
+		border-collapse: collapse;
+		line-height: 1.5;
+		margin: auto;
+	}
+	a{
+		line-height: 1.5;
+		margin: auto;
+	}
+	th{
+		font-size: large;
+	}
+	
+	a {
+		text-decoration: none;
+		border: 2px solid black;
+		color: black;
+	}
+</style>
+</head>
+<body>
+	<table border="1">
+		<tr style="height: 100px;">
+			<th>제목</th>
+			<th><%=eventVO.getEvnTitle() %></th>
+			<th>내용</th>
+			<th><%=eventVO.getEvnCon() %></th>
+		</tr>
+		<tr>
+			<td style="height: 500px;">이미지</td>
+			<td style="height: 500px;" colspan="3">
+				<%if(fileList != null){ %> 
+				
+					<%for(AtFileVO fileVO : fileList){ %>
+
+				<div>
+					<a
+						href="<%=request.getContextPath() %>/filedownload.do?fileId=<%=fileVO.getFileId()%>&fileNo=<%=fileVO.getFileNo()%>">
+						<%=fileVO.getFileOrigin() %>
+					</a>
+				</div> 
+					<%} %>
+				
+				 <%} %>
+
+			</td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<a href="list.do">목록</a>
+	<a href="update.do?evnCode=<%=eventVO.getEvnCode() %>">게시글 수정</a>
+	<a href="delete.do?evnCode=<%=eventVO.getEvnCode() %>">게시글 삭제</a>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<%@page import="vo.RecCrewVO2"%>
+<%@page import="vo.CrewThmVO"%>
+<%@page import="vo.CrewActVO"%>
+<%@page import="vo.RecCrewVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	RecCrewVO2 rcv = (RecCrewVO2)request.getAttribute("rv");
+%>     
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<%
+String startDate = rcv.getRecrStart();
+	   startDate = startDate.substring(0,10);
+String endDate = rcv.getRecrStart();
+	   endDate = endDate.substring(0,10);
+%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>게시글</title>
+</head>
+<body>
+	<div style="width: 50%; border: 1px solid black;">
+		<p>제목 : <%=rcv.getRecrTitle() %></p>
+		<p>날짜 : <%=startDate %> ~ <%=endDate %></p>
+		<p>인원 : <%=rcv.getRecrNeednum() %></p>
+		<p>테마 : <%=rcv.getTmCode() %> / 활동 : <%=rcv.getActCode() %></p>
+		<p>내용 : <%=rcv.getRecrContent() %> </p>
+	</div>
+</body>
+</html>

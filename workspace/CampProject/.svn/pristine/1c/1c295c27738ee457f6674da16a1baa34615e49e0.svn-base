@@ -1,0 +1,5 @@
+package qna.handler;
+
+public class ViewQnaHandler { // 한 게시글만 보여주는 핸들러
+
+}

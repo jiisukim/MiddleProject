@@ -1,0 +1,21 @@
+package vo;
+
+public class CampCateVO {
+	
+	private String CmpCode;
+	private String LocCode;
+	
+	public String getCmpCode() {
+		return CmpCode;
+	}
+	public void setCmpCode(String cmpCode) {
+		CmpCode = cmpCode;
+	}
+	public String getLocCode() {
+		return LocCode;
+	}
+	public void setLocCode(String locCode) {
+		LocCode = locCode;
+	}
+	
+}

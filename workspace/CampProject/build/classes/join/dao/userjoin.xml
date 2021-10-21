@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="userjoin">
+<!-- 
+	<insert id="">
+		
+	</insert>
+	
+	<update id=""></update>
+	
+	<select id=""></select> -->	
+	<select id="searchMemListByMemId" parameterClass="String"
+	resultClass="vo.MemVO">
+		SELECT 
+	    MEM_CODE        memCode
+	    ,MEM_ID         memId
+	    ,MEM_PW         memPw
+	    ,MEM_NICK       memNick
+	    ,MEM_NAME       memName
+	    ,MEM_BIR        memBir
+	    ,MEM_GEN        memGen
+	    ,MEM_EMAIL      memEmail
+	    ,MEM_TEL        memTel
+	    ,MEM_POINT      memPoint
+	    ,MEM_DELYN      memDelyn		
+		FROM TB_MEM
+		WHERE MEM_ID = #memId#		
+	</select>	
+	
+	<select id="searchMemListByMemNick" parameterClass="String"
+	resultClass="vo.MemVO">
+			SELECT 
+	    MEM_CODE        memCode
+	    ,MEM_ID         memId
+	    ,MEM_PW         memPw
+	    ,MEM_NICK       memNick
+	    ,MEM_NAME       memName
+	    ,MEM_BIR        memBir
+	    ,MEM_GEN        memGen
+	    ,MEM_EMAIL      memEmail
+	    ,MEM_TEL        memTel
+	    ,MEM_POINT      memPoint
+	    ,MEM_DELYN      memDelyn		
+		FROM TB_MEM
+		WHERE MEM_NICK = #memNick#		
+	</select>
+	
+	<insert id="insertMember" parameterClass="vo.MemVO">
+		INSERT INTO TB_MEM
+		(MEM_CODE,MEM_ID ,MEM_PW ,MEM_NICK ,MEM_NAME ,MEM_BIR ,MEM_GEN ,MEM_EMAIL 
+		,MEM_TEL ,MEM_POINT ,MEM_DELYN)
+		VALUES(MEM_SEQ.NEXTVAL, #memId#,#memPw#, #memNick#, #memName#, TO_DATE(#memBir#), #memGen#, #memEmail#
+		, #memTel#, #memPoint# , #memDelyn#)	
+	</insert>
+	
+	
+		
+</sqlMap>

@@ -1,0 +1,5 @@
+package campRev.handler;
+
+public class DeleteCampRevHandler {
+
+}

@@ -1,0 +1,77 @@
+package login.handler;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+
+import comm.handler.CommandHandler;
+import login.service.IUserLoginService;
+import login.service.UserLoginServiceImpl;
+import vo.ConstVO;
+import vo.MemVO;
+
+public class UserLoginHandler implements CommandHandler {
+	
+	private static final Logger LOGGER = Logger.getLogger(UserLoginHandler.class);
+
+	@Override
+	public boolean isRedirect(HttpServletRequest req) {
+		return false;
+	}
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String url = "";
+		
+		if(req.getMethod().equalsIgnoreCase("GET")){
+			url = ConstVO.VIEW_MAIN_PAGE;
+			
+		}else if(req.getMethod().equalsIgnoreCase("POST")){
+			String memID = req.getParameter("userID");
+			String memPW = req.getParameter("userPW");
+			
+			IUserLoginService serv = UserLoginServiceImpl.getInstance();
+			
+			MemVO vo = serv.checkUser(memID, memPW);
+			
+			HttpSession session = req.getSession(false);
+			
+			if( vo != null) {
+
+				if (vo.getMemId().equals(memID)&&vo.getMemPw().equals(memPW)) {
+						// 로그인 작업 -> 세션값 생성
+						session.setAttribute("vo", vo);
+//								session.setAttribute("pw", memPW);
+				}	
+			}		
+					
+					
+		}
+				
+				
+				
+		
+		
+		System.out.println("url1 : " + url);
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			url = ConstVO.VIEW_USER_LOGIN;
+			System.out.println("url2 : " + url);
+		}else if(req.getMethod().equalsIgnoreCase("POST")) {
+			url = ConstVO.VIEW_USER_LOGIN;
+			System.out.println("url3 : " + url);
+		}
+		
+		System.out.println("url4 : " + url);
+		
+		
+		
+		return url;
+		
+	}
+	
+	
+
+}

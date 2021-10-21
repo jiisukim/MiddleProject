@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="faq">
+<!-- 
+	<insert id="">
+		
+	</insert>
+	
+	<update id=""></update>
+	
+	<select id=""></select> -->	
+	
+	<insert id="insertFaq" parameterClass="vo.FaqVO">
+		INSERT INTO TB_FAQ(
+	    FAQ_CODE
+	    ,ADM_CODE
+	    ,FAQ_TITLE
+	    ,FAQ_CON
+	    ,FAQ_DATE)
+	    VALUES
+	    (FAQ_SEQ.NEXTVAL, #admCode# ,#faqTitle#,#faqCon#,SYSDATE);	
+	</insert>
+	
+	<update id="updateFaq">
+		UPDATE TB_FAQ
+		SET FAQ_TITLE = #faqTitle#, FAQ_CON = #faqCon#, FAQ_DATE = SYSDATE
+		WHERE ADM_CODE = #admCode#	
+	</update>
+	
+	<delete id="deleteFaq">
+		DELETE FROM TB_FAQ WHERE ADM_CODE = #admCode#
+	</delete>
+	
+	<select id="getFaqWithPaging">
+		SELECT AA.*
+		FROM
+		    (SELECT A.* , ROWNUM AS RNUM   
+		    FROM
+		    (SELECT FAQ_CODE
+		        ,ADM_CODE
+		        ,FAQ_TITLE
+		        ,FAQ_CON
+		        ,FAQ_DATE
+		    FROM TB_FAQ ORDER BY FAQ_CODE DESC)A )AA
+		WHERE AA.RNUM BETWEEN #firstRecNo# AND #lastRecNo#
+	</select>
+	
+	<select id="getTotalCnt" resultClass="int">
+		SELECT COUNT(*) AS CNT
+		FROM TB_FAQ
+	</select>
+	
+	<select id="getFaq" resultClass="vo.FaqVO">
+		SELECT * FROM TB_FAQ
+		WHERE ADM_CODE = #faqCode#
+	</select>
+	
+	<select id="getFaqDetail" parameterClass="vo.FaqVO" resultClass="vo.FaqVO">
+		SELECT * FROM TB_FAQ
+		WHERE 1=1
+		<dynamic>
+			<isNotEmpty property="admCode">
+				AND ADM_CODE LIKE '%' || #admCode# || '%'
+			</isNotEmpty>
+			<isNotEmpty property="faqTitle">
+				AND FAQ_TITLE LIKE '%' || #faqTitle# || '%'
+			</isNotEmpty>
+			<isNotEmpty property="faqCon">
+				AND FAQ_CON LIKE '%' || #faqCon# || '%' 
+			</isNotEmpty>		
+		</dynamic>
+		ORDER BY FAQ_CODE DESC
+	</select>
+	
+	<select id="getAdminNick" parameterClass="String">
+		SELECT DISTINCT A.ADM_NICK 
+		FROM TB_ADMIN A,
+		    TB_FAQ F
+		WHERE F.ADM_CODE = #admCode#
+	</select>
+
+		
+</sqlMap>

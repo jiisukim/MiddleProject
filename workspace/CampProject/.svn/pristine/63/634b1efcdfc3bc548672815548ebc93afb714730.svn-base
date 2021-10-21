@@ -1,0 +1,21 @@
+package vo;
+
+public class HashTagVO {
+
+	private String BstCode;
+	private String Hashtag;
+	public String getBstCode() {
+		return BstCode;
+	}
+	public void setBstCode(String bstCode) {
+		BstCode = bstCode;
+	}
+	public String getHashtag() {
+		return Hashtag;
+	}
+	public void setHashtag(String hashtag) {
+		Hashtag = hashtag;
+	}
+
+	
+}

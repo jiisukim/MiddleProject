@@ -1,0 +1,104 @@
+package campRev.service;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import campRev.dao.CampRevDao;
+import campRev.dao.ICampRevDao;
+import util.SqlMapClientFactory;
+import vo.CampRevVO;
+import vo.PagingVO;
+
+public class CampRevService implements ICampRevService{
+	private ICampRevDao campRevDao;
+	 
+	private static ICampRevService hostService;
+	
+	private SqlMapClient smc;
+	
+	private CampRevService() {
+		campRevDao = CampRevDao.getInstance();
+		smc = SqlMapClientFactory.getInstance();
+	}
+	public static ICampRevService getInstance() {
+		
+		if(hostService == null) {
+			hostService = new CampRevService();
+		}
+		
+		return hostService;
+		
+	}
+	@Override
+	public int insertCampRev(CampRevVO cv) {
+		int cnt = 0;
+		
+		try {
+			cnt = campRevDao.insertCampRev(smc, cv);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	@Override
+	public List<CampRevVO> getCampRevAll(PagingVO pagingVO) {
+		List<CampRevVO> hostList = new ArrayList<CampRevVO>();
+		
+		try {
+			hostList = campRevDao.getCampRevAll(smc, pagingVO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return hostList;
+	}
+	@Override
+	public int updateCampRev(CampRevVO cv) {
+		int cnt = 0;
+		
+		try {
+			cnt = campRevDao.updateCampRev(smc, cv);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
+	}
+	@Override
+	public int deleteCampRev(String revCode) {
+		int cnt = 0;
+		
+		try {
+			cnt = campRevDao.deleteCampRev(smc, revCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
+	}
+	@Override
+	public int getTotalCnt() {
+		int cnt = 0;
+		
+		try {
+			cnt = campRevDao.getTotalCnt(smc);
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+				
+		return cnt;
+	}
+	@Override
+	public CampRevVO getCampRev(String revCode) {
+		CampRevVO cv = null;
+		try {
+			cv = campRevDao.getCampRev (smc, revCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cv;
+	}
+}

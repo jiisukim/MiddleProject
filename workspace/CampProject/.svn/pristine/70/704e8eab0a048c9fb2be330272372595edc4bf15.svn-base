@@ -1,0 +1,22 @@
+package vo;
+
+public class UsedCurrVO {
+
+	private String UsedCode;
+	private String SelCode;
+	
+	public String getUsedCode() {
+		return UsedCode;
+	}
+	public void setUsedCode(String usedCode) {
+		UsedCode = usedCode;
+	}
+	public String getSelCode() {
+		return SelCode;
+	}
+	public void setSelCode(String selCode) {
+		SelCode = selCode;
+	}
+	
+	
+}

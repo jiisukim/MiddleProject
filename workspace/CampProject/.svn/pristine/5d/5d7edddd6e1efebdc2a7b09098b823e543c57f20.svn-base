@@ -1,0 +1,26 @@
+package login.handler;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import comm.handler.CommandHandler;
+import login.service.IUserLoginService;
+import login.service.UserLoginServiceImpl;
+
+public class AdminLoginHandler implements CommandHandler{
+	
+	private static final Logger LOGGER = Logger.getLogger(UserLoginHandler.class);
+	IUserLoginService hostjoinService = UserLoginServiceImpl.getInstance();
+
+	public boolean isRedirect(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

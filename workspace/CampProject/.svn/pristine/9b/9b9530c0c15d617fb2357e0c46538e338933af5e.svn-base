@@ -1,0 +1,53 @@
+package comm.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import vo.AtFileVO;
+
+
+public class AtchFileDaoImpl implements IAtchFileDao{
+
+	private static IAtchFileDao dao;
+	
+	private AtchFileDaoImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static IAtchFileDao getInstance() {
+		if(dao == null) {
+			dao = new AtchFileDaoImpl();
+		}
+		return dao;
+	}
+
+	@Override
+	public long insertAtchFile(SqlMapClient smc, AtFileVO atchFileVO) throws SQLException {
+		long cnt = (Integer) smc.insert("atchFile.insertAtchFile", atchFileVO);
+		return cnt;
+	}
+
+	@Override
+	public long insertAtchFileDetail(SqlMapClient smc, AtFileVO atchFileVO) throws SQLException {
+		long cnt = (Integer)smc.insert("atchFile.insertAtchFileDetail", atchFileVO);
+		return cnt;
+	}
+
+	@Override
+	public List<AtFileVO> getAtchFileList(SqlMapClient smc, AtFileVO atchFileVO) throws SQLException {
+		List<AtFileVO> atchFileList = smc.queryForList("atchFile.getAtchFileList", atchFileVO);
+		return atchFileList;
+	}
+
+	@Override
+	public AtFileVO getAtchfileDetail(SqlMapClient smc, AtFileVO atchFileVO) throws SQLException {
+		AtFileVO fileVO = (AtFileVO)smc.queryForObject("atchFile.getAtchfileDetail", atchFileVO);
+		
+		return fileVO;
+	}
+	
+	
+
+}

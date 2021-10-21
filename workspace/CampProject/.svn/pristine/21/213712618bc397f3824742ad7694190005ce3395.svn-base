@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="userLogin">
+
+	<select id="chkUser" parameterClass="String" resultClass="vo.MemVO">
+		
+		SELECT
+		
+		MEM_CODE       memCode
+		, MEM_ID       memId
+		, MEM_PW       memPw
+		, MEM_NICK     memNick
+	    , MEM_NAME     memName
+	    , MEM_BIR      memBir
+	    , MEM_GEN      memGen
+	    , MEM_EMAIL    memEmail
+	    , MEM_TEL      memTel
+	    , MEM_POINT    memPoint
+	    , MEM_DELYN    memDelyn
+	    
+	    FROM TB_Mem
+	    WHERE MEM_ID = #memId#
+	    AND MEM_PW = #memPw#
+	</select>
+
+
+
+</sqlMap>

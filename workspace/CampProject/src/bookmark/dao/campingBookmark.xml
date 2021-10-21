@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+         
+<sqlMap namespace="campBookmark">
+
+	<resultMap class="vo.BookmarkVO" id="bookmark">
+		<result property="cdbCode" column="CDB_CODE"/>
+		<result property="memCode" column="MEM_CODE"/>
+		<result property="cmpCode" column="CMP_CODE"/>
+	</resultMap>
+	
+	<insert id="insertBookmark" parameterClass="vo.BookmarkVO">
+		insert into TB_CAMPDIB
+		(CDB_CODE,MEM_CODE,CMP_CODE)
+		values (#cdbCode#,#memCode#,#cmpCode#)
+	</insert>
+	
+	<update id="updateBookmark" parameterClass="vo.BookmarkVO">
+	
+	</update>
+	
+</sqlMap>         

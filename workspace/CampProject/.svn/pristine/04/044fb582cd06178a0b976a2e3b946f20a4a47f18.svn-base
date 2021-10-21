@@ -1,0 +1,58 @@
+<%@page import="vo.RecCrewVO2"%>
+<%@page import="vo.CrewThmVO"%>
+<%@page import="vo.CrewActVO"%>
+<%@page import="vo.RecCrewVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	RecCrewVO2 rcv = (RecCrewVO2)request.getAttribute("rv");
+%>     
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<%
+String startDate = rcv.getRecrStart();
+	   startDate = startDate.substring(0,10);
+String endDate = rcv.getRecrStart();
+	   endDate = endDate.substring(0,10);
+	   
+String act = rcv.getActCode();
+if("a001".equals(act)) {
+	act= "등산";
+}else if("a002".equals(act)){
+	act = "낚시";
+}else if("a003".equals(act)){
+	act = "오락";
+}else if("a004".equals(act)){
+	act = "힐링";
+}else if("a005".equals(act)){
+	act = "무관";
+}
+String thm = rcv.getTmCode();
+if("t001".equals(thm)) {
+	thm = "해안";
+}else if("t002".equals(thm)){
+	thm = "자연";
+}else if("t003".equals(thm)){
+	thm = "도시";
+}else if("t004".equals(thm)){
+	thm = "반려동물";
+}else if("t005".equals(thm)){
+	thm = "무관";
+}
+%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>게시글</title>
+
+</head>
+<body>
+	<div style="width: 50%; border: 1px solid black;">
+		
+		<p>제목 : <%=rcv.getRecrTitle() %></p>
+		<p>날짜 : <%=startDate %> ~ <%=endDate %></p>
+		<p>인원 : <%=rcv.getRecrNeednum() %></p>
+		<p>테마 : <%=thm %> / 활동 : <%=act %></p>
+		<p>내용 : <%=rcv.getRecrContent() %> </p>
+	</div>
+</body>
+</html>

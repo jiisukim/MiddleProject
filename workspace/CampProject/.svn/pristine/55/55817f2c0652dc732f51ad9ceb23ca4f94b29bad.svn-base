@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="atFile">
+
+	<resultMap class="vo.AtFileVO" id="atFileMap">
+	
+		<result property="fileId" column="FILE_ID" />
+		<result property="fileNo" column="FILE_NO" />
+		<result property="fileOrigin" column="FILE_ORIGIN" />
+		<result property="fileStrname" column="FILE_STRNAME" />
+		<result property="fileCon" column="FILE_CON" />
+		<result property="fileSize" column="FILE_SIZE" />
+		<result property="filePath" column="FILE_PATH" />
+		<result property="fileExp" column="FILE_EXP" />
+	</resultMap>
+
+	<select id="getAtFileList"
+		parameterClass="vo.AtFileVO" resultMap="atFileMap">
+		SELECT *
+		FROM TB_ATFILE
+		WHERE FILE_ID = #fileId#
+	</select>
+
+	<select id="getAtFileDetail"
+		parameterClass="vo.AtFileVO" resultMap="atFileMap">
+		SELECT *
+		FROM TB_ATFILE
+		WHERE FILE_ID = #fileId#
+		AND FILE_NO = #fileNo#
+	</select>
+
+	<insert id="insertAtFileDetail"
+		parameterClass="vo.AtFileVO">
+
+		<selectKey keyProperty="fileId" resultClass="long">
+			SELECT
+			ATFILE_SEQ.nextval FROM DUAL
+		</selectKey>
+
+		INSERT INTO TB_ATFILEDET
+		(
+			FILE_ID,
+			DTL_DATE,
+			DTL_USEYN
+		)VALUES(
+			#fileId#,
+			SYSDATE,
+			'Y'
+		)
+
+	</insert>
+
+	<insert id="insertAtFile">
+		INSERT INTO TB_ATFILE
+		(			
+			FILE_ID,
+			FILE_NO,
+			FILE_ORIGIN,
+			FILE_STRNAME,
+			FILE_CON,
+			FILE_SIZE,
+			FILE_PATH,
+			FILE_EXP			
+		)VALUES(
+			#fileId#,
+			(SELECT NVL(MAX(FILE_NO),0)+1
+			FROM TB_ATFILE
+			WHERE FILE_ID = #fileId#),
+			#fileOrigin#,
+			#fileStrname#,
+			#fileCon#,
+			#fileSize#,
+			#filePath#,
+			#fileExp#
+		)
+
+	</insert>
+	
+</sqlMap>			
+
+
+
+
+

@@ -1,0 +1,64 @@
+package vo;
+
+public class AtFileVO {
+	
+	private long FileId = -1;
+	private int FileNo = 1;
+	private String FileOrigin;
+	private String FileStrname;
+	private String FileCon;
+	private long FileSize = 0;
+	private String FilePath;
+	private String FileExp;
+	
+	public long getFileId() {
+		return FileId;
+	}
+	public void setFileId(long fileId) {
+		FileId = fileId;
+	}
+	public int getFileNo() {
+		return FileNo;
+	}
+	public void setFileNo(int fileNo) {
+		FileNo = fileNo;
+	}
+	public String getFileOrigin() {
+		return FileOrigin;
+	}
+	public void setFileOrigin(String fileOrigin) {
+		FileOrigin = fileOrigin;
+	}
+	public String getFileStrname() {
+		return FileStrname;
+	}
+	public void setFileStrname(String fileStrname) {
+		FileStrname = fileStrname;
+	}
+	public String getFileCon() {
+		return FileCon;
+	}
+	public void setFileCon(String fileCon) {
+		FileCon = fileCon;
+	}
+	public long getFileSize() {
+		return FileSize;
+	}
+	public void setFileSize(long fileSize) {
+		FileSize = fileSize;
+	}
+	public String getFilePath() {
+		return FilePath;
+	}
+	public void setFilePath(String filePath) {
+		FilePath = filePath;
+	}
+	public String getFileExp() {
+		return FileExp;
+	}
+	public void setFileExp(String fileExp) {
+		FileExp = fileExp;
+	}
+		
+
+}

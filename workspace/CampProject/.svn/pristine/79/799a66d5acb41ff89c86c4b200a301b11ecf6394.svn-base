@@ -1,0 +1,22 @@
+package qna.handler;
+
+import org.apache.log4j.Logger;
+
+import comm.service.AtchfileServiceImpl;
+import comm.service.IatchFileService;
+import event.handler.InsertEventHandler;
+import event.service.EventServiceImpl;
+import event.service.IEventService;
+
+public class InsertQnaHandler {
+
+	private static final Logger LOGGER = Logger.getLogger(InsertQnaHandler.class); 
+	
+	private static final String VIEW_PAGE = "/WEB-INF/views/qna/insert.jsp";
+	
+	private IEventService eventService = EventServiceImpl.getInstance();
+	
+	private IatchFileService fileService = AtchfileServiceImpl.getInstance();	
+	
+	
+}

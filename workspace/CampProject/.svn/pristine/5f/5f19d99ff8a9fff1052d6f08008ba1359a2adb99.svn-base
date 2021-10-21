@@ -1,0 +1,72 @@
+package campRev.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import vo.CampRevVO;
+import vo.PagingVO;
+
+public interface ICampRevDao {
+
+	// 등록
+	/**
+	 * 리뷰 게시판 등록
+	 * @param smc SqlMapClient 객체
+	 * @param cv DB에 insert할 자료가 저장된 리뷰게시판
+	 * @return DB 작업이 성공하면 1이상의 값이 반환, 실패하면  0이 반환
+	 * @throws SQLException
+	 */
+	public int insertCampRev(SqlMapClient smc, CampRevVO cv) throws SQLException;
+
+	// 수정
+	/**
+	 * 리뷰 게시판 수정
+	 * @param smc SqlMapClient 객체
+	 * @param cv DB에 update할 자료가 저장된 리뷰게시판
+	 * @return DB 작업이 성공하면 1이상의 값이 반환, 실패하면  0이 반환
+	 * @throws SQLException
+	 */
+	public int updateCampRev(SqlMapClient smc, CampRevVO cv) throws SQLException;
+	
+	// 삭제
+	/**
+	 * 리뷰코드에 해당하는 리뷰게시글 삭제
+	 * @param smc SqlMapClient 객체
+	 * @param revCode 리뷰코드에 해당하는 리뷰게시글 삭제
+	 * @return DB 작업이 성공하면 1이상의 값이 반환, 실패하면  0이 반환
+	 * @throws SQLException
+	 */
+	public int deleteCampRev(SqlMapClient smc, String revCode) throws SQLException;
+
+	// 페이징 처리
+	/**
+	 * 전체 리뷰 게시판 정보 수
+	 * @param smc SqlMapClient 객체
+	 * @return 전체 리뷰 게시판 정보 수
+	 * @throws SQLException
+	 */
+	public int getTotalCnt(SqlMapClient smc) throws SQLException;
+	
+	// 리뷰 코드로 정보 조회
+	/**
+	 * 리뷰코드에 해당하는 리뷰정보
+	 * @param smc SqlMapClient 객체
+	 * @param revCode 
+	 * @return 리뷰정보를 담은 CampRevVO객체
+	 * @throws SQLException
+	 */
+	public CampRevVO getCampRev(SqlMapClient smc, String revCode) throws SQLException;
+	
+	// 여러 페이지 조회
+	/**
+	 * 리뷰테이블 전체 레코드를 가져와서 List에 담아 반환하는 메서드
+	 * @param smc SqlMapCliet 객체
+	 * @param pagingVO 페이징 정보를 담고 있는 객체
+	 * @return CampRevVO객체를 담고 있는 List객체
+	 * @throws SQLException
+	 */
+	public List<CampRevVO> getCampRevAll(SqlMapClient smc, PagingVO pagingVO) throws SQLException;
+	
+}

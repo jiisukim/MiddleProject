@@ -1,0 +1,123 @@
+<%@page import="vo.QnaVO"%>
+<%@page import="vo.PagingVO"%>
+<%@page import="java.util.List"%>
+<%@page import="vo.EventVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+List<QnaVO> qnaList = (List<QnaVO>)request.getAttribute("qnaList");
+PagingVO pagingVO = (PagingVO)request.getAttribute("pagingVO");
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Q&A</title>
+
+
+<style type="text/css">
+	table.type09 {
+		text-align: left;
+		border-collapse: collapse;
+		line-height: 1.5;
+		margin: auto;
+	}
+	
+	table.type09 thead th {
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		color: #369;
+		border-bottom: 3px solid #036;
+	}
+	
+	table.type09 tbody th {
+		width: 100px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+		background-color: navy;
+		color: white;
+		
+	}
+	
+	table.type09 td {
+		width: 400px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	h1 {
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+
+	<h1>Q&A 목록 보기</h1>
+	<br>
+	<br>
+	<table class="type09" border="1">
+		<thead>
+			<tr>
+				<th style="width: 200px;">번호</th>
+				<th>제목</th>
+				<th style="width: 200px;">작성자</th>
+				<th style="width: 200px;">날짜</th>
+			</tr>
+		</thead>
+		<%
+				int qnaSize = qnaList.size();
+				if (qnaSize > 0) { // 사이즈가 0보다 클때 : 공지사항 게시물이 있을 때
+					for (int i = 0; i < qnaSize; i++) {
+						String qnaCode = qnaList.get(i).getQnaCode();
+			%>
+		<tbody>
+			<tr>
+				<td style="width: 200px;"><%= qnaCode %></td>
+				<td><a
+					href="view.do?qnaCode=<%= qnaList.get(i).getQnaTitle() %>"></a></td>
+<%-- 				<td style="width: 200px;"><%= qnaList.get(i).getMemCode() %></td> ???작성자 닉을 넣어야 하는데--%>
+				<td style="width: 200px;"><%= qnaList.get(i).getQnaDate() %></td>
+			</tr>
+		</tbody>
+		<%		
+			 } // for문
+		%>
+
+		<!-- 페이징 처리 시작 -->
+		<tr>
+			<td colspan="4" align="center">
+				<%if(pagingVO.getFirstPageNo() > pagingVO.getPageSize()) { %> <a
+				href="list.do?pageNo=<%=pagingVO.getFirstPageNo() - pagingVO.getPageSize() %>">[이전]</a>
+				<%} %> <%for(int pNo = pagingVO.getFirstPageNo(); pNo <= pagingVO.getLastPageNo(); pNo++){ %>
+				<a <%if(pNo == pagingVO.getCurrentPageNo()){ %>
+				style="color: green;" <%} %> href="list.do?pageNo=<%=pNo %>">[<%=pNo %>]
+			</a> <%} %> <%if(pagingVO.getLastPageNo() < pagingVO.getTotalPageCount()) { %>
+				<a
+				href="list.do?pageNo=<%=pagingVO.getFirstPageNo() + pagingVO.getPageSize() %>">[다음]</a>
+				<%} %>
+			</td>
+		</tr>
+		<!-- 페이징 처리 끝 -->
+		<% 		
+			}else{ // 회원정보가 존재하지 않으면...
+			%>
+		<tr align="center">
+			<td colspan="4">이벤트글이 올라오지 않았습니다.</td>
+		</tr>
+		<%
+			}
+		%>
+		<tr align="center">
+			<td colspan="4"><a href="insert.do">[게시글 등록]</a></td>
+		</tr>
+
+	</table>
+
+
+</body>
+</html>

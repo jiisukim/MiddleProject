@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CommitComments>	<CommitComment>크루커밋</CommitComment>
+	<CommitComment>사진커밋</CommitComment>
+	<CommitComment>크루모집 </CommitComment>
+	<CommitComment>크루관련 jsp파일 커밋</CommitComment>
+	<CommitComment>크루모집 패키지 커밋</CommitComment>
+	<CommitComment>크루관련 xml 추가</CommitComment>
+	<CommitComment>crewinsert 핸들러 등록</CommitComment>
+	<CommitComment>현재인원 수용인원 다시 int로 변환</CommitComment>
+	<CommitComment>수용가능 인원 int 에서 String으로 바꿈</CommitComment>
+	<CommitComment>크루 관련 VO 수정</CommitComment>
+</CommitComments>
